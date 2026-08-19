@@ -1,6 +1,6 @@
 import streamlit as st
-import joblib
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -29,8 +29,8 @@ def render():
         if st.button("Mesajı Analiz Et"):
             try:
                 # Model ve Vektörleştiriciyi Yükle
-                model = joblib.load('models/spam_model.pkl')
-                vectorizer = joblib.load('models/spam_vectorizer.pkl')
+                model = load_model('spam_model.pkl')
+                vectorizer = load_model('spam_vectorizer.pkl')
 
                 # Metni sayısallaştır ve tahmin et
                 text_vector = vectorizer.transform([user_text])
@@ -59,8 +59,8 @@ def render():
 
         if st.button("Duygu Durumunu Tahmin Et"):
             try:
-                model = joblib.load('models/imdb_model.pkl')
-                vectorizer = joblib.load('models/imdb_vectorizer.pkl')
+                model = load_model('imdb_model.pkl')
+                vectorizer = load_model('imdb_vectorizer.pkl')
 
                 text_vector = vectorizer.transform([user_text])
                 pred = model.predict(text_vector)[0]
@@ -88,8 +88,8 @@ def render():
 
         if st.button("Haber Gerçekliğini Sorgula"):
             try:
-                model = joblib.load('models/news_model.pkl')
-                vectorizer = joblib.load('models/news_vectorizer.pkl')
+                model = load_model('news_model.pkl')
+                vectorizer = load_model('news_vectorizer.pkl')
 
                 text_vector = vectorizer.transform([user_text])
                 pred = model.predict(text_vector)[0]

@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 import cv2
 import random
-import joblib
 from PIL import Image
 
+from model_loader import load_model, load_keras_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -35,13 +35,12 @@ def render():
             st.image(image, caption="Analiz Edilen Röntgen Görseli", width=350)
 
             try:
-                import tensorflow as tf
                 # Resmi yükleyip ön işleme yapma
                 img = np.array(image.convert('L'))
                 img_resized = cv2.resize(img, (64, 64)) / 255.0
                 input_data = img_resized.reshape(-1, 64, 64, 1)
 
-                model = tf.keras.models.load_model('models/pneumonia_model.keras')
+                model = load_keras_model('pneumonia_model.keras')
                 prediction = model.predict(input_data)[0][0]
 
                 if prediction > 0.5:
@@ -74,12 +73,11 @@ def render():
             st.image(image, caption="Taranan Yüz", width=300)
 
             try:
-                import tensorflow as tf
                 img = np.array(image.convert('L'))
                 img_resized = cv2.resize(img, (48, 48)) / 255.0
                 input_data = img_resized.reshape(-1, 48, 48, 1)
 
-                model = tf.keras.models.load_model('models/fer_model.keras')
+                model = load_keras_model('fer_model.keras')
                 preds = model.predict(input_data)[0]
 
                 emotions = ["Öfkeli 🤬", "Mutlu 🥰", "Üzgün 😢"]
@@ -105,7 +103,7 @@ def render():
 
         if st.button("Yapay Zeka Metni Üretsin"):
             try:
-                markov_chain = joblib.load('models/text_robot_model.pkl')
+                markov_chain = load_model('text_robot_model.pkl')
 
                 generated_text = [start_word]
                 current_word = start_word

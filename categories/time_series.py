@@ -1,8 +1,8 @@
 import streamlit as st
-import joblib
 import numpy as np
 import pandas as pd
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -30,8 +30,8 @@ def render():
 
         if st.button("Gelecek Trendi Tahmin Et"):
             try:
-                model = joblib.load('models/stock_model.pkl')
-                recent_data = joblib.load('models/stock_recent.pkl') # Son 30 günün kapanış fiyatları
+                model = load_model('stock_model.pkl')
+                recent_data = load_model('stock_recent.pkl')  # Son 30 gunun kapanis fiyatlari
 
                 # Gelecek günleri tahmin etme döngüsü
                 predictions = []
@@ -70,8 +70,8 @@ def render():
 
         if st.button("Sıcaklık Trendini Hesapla"):
             try:
-                model = joblib.load('models/weather_model.pkl')
-                recent_data = joblib.load('models/weather_recent.pkl')
+                model = load_model('weather_model.pkl')
+                recent_data = load_model('weather_recent.pkl')
 
                 predictions = []
                 current_input = recent_data[-1]
@@ -105,8 +105,8 @@ def render():
 
         if st.button("Haftalık Ciroyu Tahmin Et"):
             try:
-                model = joblib.load('models/walmart_model.pkl')
-                recent_data = joblib.load('models/walmart_recent.pkl')
+                model = load_model('walmart_model.pkl')
+                recent_data = load_model('walmart_recent.pkl')
 
                 predictions = []
                 current_input = recent_data[-1]

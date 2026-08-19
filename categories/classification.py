@@ -1,7 +1,7 @@
 import streamlit as st
-import joblib
 import numpy as np
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -37,7 +37,7 @@ def render():
             wifi = st.selectbox("Wi-Fi Var mı?", ["Hayır", "Evet"])
 
         if st.button("Fiyat Segmentini Tahmin Et"):
-            model = joblib.load('models/mobile_model.pkl')
+            model = load_model('mobile_model.pkl')
             sim_val = 1 if sim == "Evet" else 0
             touch_val = 1 if touch == "Evet" else 0
             wifi_val = 1 if wifi == "Evet" else 0
@@ -75,7 +75,7 @@ def render():
             alcohol = st.number_input("Alkol Oranı (%)", value=10.5)
 
         if st.button("Şarap Kalitesini Puanla"):
-            model = joblib.load('models/wine_model.pkl')
+            model = load_model('wine_model.pkl')
             features = np.array([[fixed_acid, vol_acid, citric, sugar, chlorides, free_sulfur, total_sulfur, density, ph, sulphates, alcohol]])
             pred = model.predict(features)[0]
             st.success(f"🎯 Tahmini Şarap Kalite Puanı: **{pred} / 10**")
@@ -104,7 +104,7 @@ def render():
             phone = st.selectbox("Telefon Servisi Var mı?", ["Hayır", "Evet"])
 
         if st.button("Terk Riskini Hesapla"):
-            model = joblib.load('models/churn_model.pkl')
+            model = load_model('churn_model.pkl')
             g_val = 1 if gender == "Erkek" else 0
             s_val = 1 if senior == "Evet" else 0
             p_val = 1 if partner == "Evet" else 0

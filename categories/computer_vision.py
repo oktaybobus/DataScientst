@@ -1,10 +1,10 @@
 import streamlit as st
-import joblib
 import numpy as np
 import cv2
 import mediapipe as mp
 from PIL import Image
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -77,7 +77,7 @@ def render():
                 flattened_img = img_resized.flatten().reshape(1, -1)
 
                 # Modeli yükle ve tahmin et
-                model = joblib.load('models/mask_model.pkl')
+                model = load_model('mask_model.pkl')
                 # Modelimiz 0: Maskeli, 1: Maskesiz olarak eğitildi
                 pred = model.predict(flattened_img)[0]
 

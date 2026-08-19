@@ -1,6 +1,6 @@
 import streamlit as st
-import joblib
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -25,8 +25,8 @@ def render():
         show_model_metrics("movie_rec")
 
         try:
-            movies_df = joblib.load('models/movie_data.pkl')
-            movie_sim = joblib.load('models/movie_similarity.pkl')
+            movies_df = load_model('movie_data.pkl')
+            movie_sim = load_model('movie_similarity.pkl')
 
             movie_list = movies_df['title'].values
             selected_movie = st.selectbox("Bir Film Seçin", movie_list)
@@ -57,8 +57,8 @@ def render():
         show_model_metrics("book_rec")
 
         try:
-            books_df = joblib.load('models/book_data.pkl')
-            book_sim = joblib.load('models/book_similarity.pkl')
+            books_df = load_model('book_data.pkl')
+            book_sim = load_model('book_similarity.pkl')
 
             book_list = books_df['title'].values
             selected_book = st.selectbox("Bir Kitap Seçin", book_list)
@@ -89,8 +89,8 @@ def render():
         show_model_metrics("song_rec")
 
         try:
-            songs_df = joblib.load('models/song_data.pkl')
-            song_sim = joblib.load('models/song_similarity.pkl')
+            songs_df = load_model('song_data.pkl')
+            song_sim = load_model('song_similarity.pkl')
 
             song_list = songs_df['track_name'].values
             selected_song = st.selectbox("Bir Şarkı Seçin", song_list)

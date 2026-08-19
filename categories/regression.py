@@ -1,8 +1,8 @@
 import streamlit as st
-import joblib
 import numpy as np
 import pandas as pd
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -33,7 +33,7 @@ def render():
             slv = st.number_input("Gümüş Fiyatı (SLV)", value=15.0)
             eur_usd = st.number_input("EUR/USD Paritesi", value=1.12)
         if st.button("Altın Fiyatını Tahmin Et"):
-            model = joblib.load('models/gold_model.pkl')
+            model = load_model('gold_model.pkl')
             pred = model.predict(np.array([[spx, uso, slv, eur_usd]]))
             st.success(f"💰 Tahmini Altın Ons Fiyatı: **${pred.item():,.2f}**")
 
@@ -66,7 +66,7 @@ def render():
 
         if st.button("Matematik Notunu Tahmin Et"):
             try:
-                model = joblib.load('models/student_model.pkl')
+                model = load_model('student_model.pkl')
 
                 # One-hot encoding eğitim sütun sırasına göre girdileri True/False (1/0) olarak hazırlama
                 g_male = 1 if gender == "Erkek" else 0
@@ -128,7 +128,7 @@ def render():
 
         if st.button("Yolculuk Ücretini Hesapla"):
             try:
-                model = joblib.load('models/uber_model.pkl')
+                model = load_model('uber_model.pkl')
 
                 # Model eğitimindeki tam sütun dizilimi:
                 # pickup_longitude, pickup_latitude, dropoff_longitude, dropoff_latitude, passenger_count

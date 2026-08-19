@@ -1,9 +1,9 @@
 import streamlit as st
-import joblib
 import numpy as np
 import pandas as pd
 import plotly.express as px
 
+from model_loader import load_model
 from train_codes import TRAIN_CODE
 from components import show_dataset_info, show_model_metrics
 
@@ -34,8 +34,8 @@ def render():
             ast = st.slider("Maç Başına Asist", 0.0, 12.0, 4.0)
 
             if st.button("Oyuncu Stilini Grupla"):
-                model = joblib.load('models/nba_model.pkl')
-                scaler = joblib.load('models/nba_scaler.pkl')
+                model = load_model('nba_model.pkl')
+                scaler = load_model('nba_scaler.pkl')
 
                 # Girdiyi ölçeklendir ve tahmin et
                 user_data = np.array([[pts, reb, ast]])
@@ -78,8 +78,8 @@ def render():
             limit = st.number_input("Kredi Kartı Limiti ($)", value=4000.0)
 
             if st.button("Müşteriyi Segmentlere Ayır"):
-                model = joblib.load('models/cc_model.pkl')
-                scaler = joblib.load('models/cc_scaler.pkl')
+                model = load_model('cc_model.pkl')
+                scaler = load_model('cc_scaler.pkl')
 
                 user_data = np.array([[balance, purchases, limit]])
                 user_scaled = scaler.transform(user_data)
@@ -119,8 +119,8 @@ def render():
             loudness = st.slider("Ses Seviyesi (Loudness dB)", -60.0, 0.0, -8.0)
 
             if st.button("Şarkı Türü Kümesini Bul"):
-                model = joblib.load('models/spotify_model.pkl')
-                scaler = joblib.load('models/spotify_scaler.pkl')
+                model = load_model('spotify_model.pkl')
+                scaler = load_model('spotify_scaler.pkl')
 
                 user_data = np.array([[dance, energy, loudness]])
                 user_scaled = scaler.transform(user_data)

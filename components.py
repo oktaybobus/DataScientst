@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 
+from model_loader import get_model_path
 from dataset_info import DATASET_INFO
 
 
@@ -40,11 +41,11 @@ def show_dataset_info(key: str):
 # dosyasina yazilir. Bu dosya varsa GERCEK sayilar kullanilir.
 # ====================================================================
 
-METRICS_PATH = "models/metrics.json"
 try:
+    METRICS_PATH = get_model_path("metrics.json")
     with open(METRICS_PATH, "r", encoding="utf-8") as f:
         REAL_METRICS = json.load(f)
-except (FileNotFoundError, json.JSONDecodeError):
+except (FileNotFoundError, json.JSONDecodeError, Exception):
     REAL_METRICS = {}
 
 # ====================================================================
