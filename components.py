@@ -15,21 +15,21 @@ def show_dataset_info(key: str):
     if not info:
         return
 
-    with st.expander(f"📂 Veri Seti Bilgisi: {info['name']}"):
-        st.markdown(f"**Kaynak:** {info['source']}")
-        st.markdown(f"**Büyüklük:** {info['size']}")
+    with st.expander(f"📂 Dataset Info: {info['name']}"):
+        st.markdown(f"**Source:** {info['source']}")
+        st.markdown(f"**Size:** {info['size']}")
         st.markdown(info["description"])
 
         if info.get("columns"):
-            st.markdown("**Sütun Açıklamaları:**")
+            st.markdown("**Column Descriptions:**")
             col_df = pd.DataFrame({
-                "Sütun": list(info["columns"].keys()),
-                "Açıklama": list(info["columns"].values()),
+                "Column": list(info["columns"].keys()),
+                "Description": list(info["columns"].values()),
             })
             st.dataframe(col_df, width="stretch", hide_index=True)
 
         if info.get("sample") is not None:
-            st.markdown("**Örnek Veri (ilk birkaç satır):**")
+            st.markdown("**Sample Data (first rows):**")
             st.dataframe(info["sample"], width="stretch")
 
         if info.get("note"):
@@ -57,7 +57,7 @@ except (FileNotFoundError, json.JSONDecodeError, Exception):
 
 PLACEHOLDER_METRICS = {
     "gold":       {"type": "regression",     "R2": 0.984, "RMSE": 2.14, "MAE": 1.52, "unit": "$"},
-    "student":    {"type": "regression",     "R2": 0.881, "RMSE": 5.40, "MAE": 4.10, "unit": "puan"},
+    "student":    {"type": "regression",     "R2": 0.881, "RMSE": 5.40, "MAE": 4.10, "unit": "pts"},
     "uber":       {"type": "regression",     "R2": 0.724, "RMSE": 3.80, "MAE": 2.10, "unit": "$"},
 
     "mobile":     {"type": "classification", "Accuracy": 0.892, "Precision": 0.885, "Recall": 0.890, "F1": 0.887},
@@ -79,23 +79,23 @@ PLACEHOLDER_METRICS = {
     "pneumonia":    {"type": "deep_learning", "Accuracy": 0.912, "Val_Accuracy": 0.887, "Loss": 0.281},
     "face_emotion": {"type": "deep_learning", "Accuracy": 0.641, "Val_Accuracy": 0.598, "Loss": 0.953},
 
-    "movie_rec": {"type": "none", "note": "İçerik tabanlı (unsupervised) öneri sistemi — accuracy/R² gibi tek bir "
-                                            "başarı metriği yoktur. Kalite genelde manuel/precision@k ile değerlendirilir."},
-    "book_rec":  {"type": "none", "note": "İçerik tabanlı (unsupervised) öneri sistemi — tek bir başarı metriği yoktur."},
-    "song_rec":  {"type": "none", "note": "İçerik tabanlı (unsupervised) öneri sistemi — tek bir başarı metriği yoktur."},
+    "movie_rec": {"type": "none", "note": "Content-based (unsupervised) recommendation system — there is no single "
+                                            "accuracy/R² metric. Quality is typically evaluated manually or via precision@k."},
+    "book_rec":  {"type": "none", "note": "Content-based (unsupervised) recommendation system — there is no single accuracy metric."},
+    "song_rec":  {"type": "none", "note": "Content-based (unsupervised) recommendation system — there is no single accuracy metric."},
 
-    "text_gen":  {"type": "none", "note": "Markov Zinciri üretken (generative) bir modeldir — "
-                                            "doğruluk/hata metriğiyle değil, üretilen metnin akıcılığıyla değerlendirilir."},
+    "text_gen":  {"type": "none", "note": "A Markov Chain is a generative model — "
+                                            "it is evaluated by text fluency, not accuracy/error metrics."},
 
-    "social_media_viz": {"type": "none", "note": "Bu sekmede eğitilen bir model yok, sadece görselleştirme var."},
-    "co2_viz":          {"type": "none", "note": "Bu sekmede eğitilen bir model yok, sadece görselleştirme var."},
-    "ecommerce_viz":    {"type": "none", "note": "Bu sekmede eğitilen bir model yok, sadece görselleştirme var."},
+    "social_media_viz": {"type": "none", "note": "No trained model in this tab — visualization only."},
+    "co2_viz":          {"type": "none", "note": "No trained model in this tab — visualization only."},
+    "ecommerce_viz":    {"type": "none", "note": "No trained model in this tab — visualization only."},
 
-    "drowsy":          {"type": "none", "note": "Şu an rastgele simülasyon çalışıyor — ölçülebilir bir başarı puanı yok."},
-    "hand":            {"type": "none", "note": "Pretrained MediaPipe modeli kullanılıyor — kendi başarı puanımız yok."},
-    "farm_agent":      {"type": "none", "note": "Kural tabanlı ajan — eğitilmiş bir model olmadığı için başarı puanı yok."},
-    "faq_agent":       {"type": "none", "note": "Kural tabanlı ajan — eğitilmiş bir model olmadığı için başarı puanı yok."},
-    "autonomous_car":  {"type": "none", "note": "Kural tabanlı ajan — eğitilmiş bir model olmadığı için başarı puanı yok."},
+    "drowsy":          {"type": "none", "note": "Currently running a random simulation — no measurable accuracy score."},
+    "hand":            {"type": "none", "note": "Uses a pretrained MediaPipe model — no custom accuracy score available."},
+    "farm_agent":      {"type": "none", "note": "Rule-based agent — no trained model, so no accuracy score."},
+    "faq_agent":       {"type": "none", "note": "Rule-based agent — no trained model, so no accuracy score."},
+    "autonomous_car":  {"type": "none", "note": "Rule-based agent — no trained model, so no accuracy score."},
 }
 
 
@@ -105,15 +105,15 @@ def show_model_metrics(key: str):
     if not m:
         return
 
-    with st.expander("🏆 Model Başarı Puanları"):
+    with st.expander("🏆 Model Performance Metrics"):
         if is_real:
-            st.success("✅ Bu puanlar train.py'ın gerçek test-seti değerlendirmesinden geliyor.")
+            st.success("✅ These scores come from actual test-set evaluation.")
         mtype = m.get("type")
 
         if mtype == "regression":
             unit = m.get("unit", "")
             c1, c2, c3 = st.columns(3)
-            c1.metric("R² Skoru", f"{m['R2']:.3f}")
+            c1.metric("R² Score", f"{m['R2']:.3f}")
             c2.metric("RMSE", f"{m['RMSE']:,.2f} {unit}")
             c3.metric("MAE", f"{m['MAE']:,.2f} {unit}")
 
@@ -122,24 +122,24 @@ def show_model_metrics(key: str):
             c1.metric("Accuracy", f"%{m['Accuracy']*100:.1f}")
             c2.metric("Precision", f"%{m['Precision']*100:.1f}")
             c3.metric("Recall", f"%{m['Recall']*100:.1f}")
-            c4.metric("F1 Skoru", f"%{m['F1']*100:.1f}")
+            c4.metric("F1 Score", f"%{m['F1']*100:.1f}")
 
         elif mtype == "clustering":
             c1, c2 = st.columns(2)
-            c1.metric("Silhouette Skoru", f"{m['Silhouette']:.2f}")
-            c2.metric("Küme Sayısı", m["n_clusters"])
-            st.caption("Silhouette Skoru -1 ile 1 arasındadır; 1'e yakın değerler kümelerin "
-                       "birbirinden iyi ayrıştığını gösterir.")
+            c1.metric("Silhouette Score", f"{m['Silhouette']:.2f}")
+            c2.metric("Number of Clusters", m["n_clusters"])
+            st.caption("Silhouette Score ranges from -1 to 1; values closer to 1 indicate "
+                       "well-separated clusters.")
 
         elif mtype == "deep_learning":
             c1, c2, c3 = st.columns(3)
-            c1.metric("Eğitim Accuracy", f"%{m['Accuracy']*100:.1f}")
+            c1.metric("Training Accuracy", f"%{m['Accuracy']*100:.1f}")
             c2.metric("Validation Accuracy", f"%{m['Val_Accuracy']*100:.1f}")
             c3.metric("Loss", f"{m['Loss']:.3f}")
 
         elif mtype == "none":
-            st.info(m.get("note", "Bu proje için ölçülebilir bir başarı metriği tanımlı değil."))
+            st.info(m.get("note", "No measurable accuracy metric is defined for this project."))
 
         if not is_real:
-            st.caption("⚠️ Bu puanlar temsilidir (models/metrics.json henüz bulunamadı). "
-                       "train.py'ı çalıştırınca gerçek sonuçlar otomatik görünecek.")
+            st.caption("⚠️ These are placeholder values (models/metrics.json not found yet). "
+                       "Run train.py and the real scores will appear automatically.")

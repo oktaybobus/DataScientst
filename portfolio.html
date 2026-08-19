@@ -78,7 +78,6 @@ body {
 
 .page { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
 
-/* HEADER */
 .header { margin-bottom: 3rem; }
 .header-eyebrow {
   font-family: 'Space Mono', monospace;
@@ -103,7 +102,6 @@ body {
   line-height: 1.65;
 }
 
-/* STATS ROW */
 .stats-row {
   display: flex;
   gap: 1px;
@@ -133,7 +131,6 @@ body {
   margin-top: 0.4rem;
 }
 
-/* CATEGORY SECTION */
 .category-section { margin-bottom: 2.5rem; }
 .category-header {
   display: flex;
@@ -163,7 +160,6 @@ body {
   font-family: 'Space Mono', monospace;
 }
 
-/* PROJECT CARDS */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -228,7 +224,6 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* TECH STACK */
 .tech-section {
   margin-top: 2.5rem;
   padding-top: 2rem;
@@ -256,7 +251,32 @@ body {
   color: var(--text-secondary);
 }
 
-/* FOOTER */
+.links-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--divider);
+}
+.links-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.link-card {
+  font-size: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.link-card:hover {
+  background: var(--accent-light);
+  box-shadow: var(--shadow-hover);
+}
+
 .footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
@@ -274,15 +294,15 @@ body {
 
   <div class="header">
     <div class="header-eyebrow">Machine Learning Portfolio</div>
-    <h1>30 Proje ile Veri Bilimi<br>Uzmanligi</h1>
-    <p class="header-desc">Regresyondan derin ogrenmee, NLP'den bilgisayarli goruye -- 10 farkli kategoride egitilmis modeller, gercek veri setleri ve canli Streamlit arayuzu.</p>
+    <h1>Data Science Expertise<br>Across 30 Projects</h1>
+    <p class="header-desc">From regression to deep learning, NLP to computer vision -- trained models on real Kaggle datasets across 10 categories, served through a live Streamlit interface.</p>
   </div>
 
   <div class="stats-row">
-    <div class="stat-cell"><div class="stat-num">30</div><div class="stat-label">Proje</div></div>
-    <div class="stat-cell"><div class="stat-num">10</div><div class="stat-label">Kategori</div></div>
-    <div class="stat-cell"><div class="stat-num">34</div><div class="stat-label">Egitilmis Model</div></div>
-    <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-label">Kaggle Dataset</div></div>
+    <div class="stat-cell"><div class="stat-num">30</div><div class="stat-label">Projects</div></div>
+    <div class="stat-cell"><div class="stat-num">10</div><div class="stat-label">Categories</div></div>
+    <div class="stat-cell"><div class="stat-num">34</div><div class="stat-label">Trained Models</div></div>
+    <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-label">Kaggle Datasets</div></div>
     <div class="stat-cell"><div class="stat-num">1</div><div class="stat-label">Streamlit App</div></div>
   </div>
 
@@ -290,35 +310,35 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-reg)"></div>
-      <span class="category-name">Regresyon</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Regression</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Altin Fiyati Tahmini</div>
-        <div class="card-desc">S&P 500, petrol, gumus ve EUR/USD endekslerinden altin ons fiyatini tahmin eder.</div>
+        <div class="card-title">Gold Price Prediction</div>
+        <div class="card-desc">Predicts gold ounce price using S&P 500, crude oil, silver, and EUR/USD indices.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="tag">Kaggle</span>
-          <span class="metric-pill">R² 0.990</span>
+          <span class="metric-pill">R2 0.990</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Ogrenci Sinav Puani Tahmini</div>
-        <div class="card-desc">Demografik ve egitsel faktorlerden matematik puanini ongorur.</div>
+        <div class="card-title">Student Exam Score Prediction</div>
+        <div class="card-desc">Forecasts math scores from demographic and educational preparation factors.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="tag">OneHot</span>
-          <span class="metric-pill">R² 0.849</span>
+          <span class="metric-pill">R2 0.849</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Uber/Taksi Ucret Tahmini</div>
-        <div class="card-desc">Kalkis-varis koordinatlari ve yolcu sayisindan yolculuk maliyetini hesaplar.</div>
+        <div class="card-title">Uber/Taxi Fare Prediction</div>
+        <div class="card-desc">Estimates trip cost from pickup-dropoff coordinates and passenger count.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
-          <span class="tag">50K satir</span>
-          <span class="metric-pill">R² 0.778</span>
+          <span class="tag">50K rows</span>
+          <span class="metric-pill">R2 0.778</span>
         </div>
       </div>
     </div>
@@ -328,21 +348,21 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-clf)"></div>
-      <span class="category-name">Siniflandirma</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Classification</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Mobil Cihaz Fiyat Segmenti</div>
-        <div class="card-desc">Donanim ozelliklerine gore telefonun fiyat sinifini (0-3) belirler.</div>
+        <div class="card-title">Mobile Device Price Segment</div>
+        <div class="card-desc">Classifies phones into price tiers (0-3) based on hardware specifications.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="metric-pill">Acc 81.2%</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Sarap Kalitesi Siniflandirmasi</div>
-        <div class="card-desc">Kimyasal olcumlerden kirmizi sarap kalite puanini tahmin eder.</div>
+        <div class="card-title">Wine Quality Classification</div>
+        <div class="card-desc">Predicts red wine quality score from chemical measurements.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="tag">Balanced</span>
@@ -350,8 +370,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Musteri Terki (Churn) Tahmini</div>
-        <div class="card-desc">Telekom musterilerinin ayrilma riskini kullanim aliskanliklarindan hesaplar.</div>
+        <div class="card-title">Customer Churn Prediction</div>
+        <div class="card-desc">Predicts telecom customer attrition risk from usage patterns.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="tag">OneHot</span>
@@ -365,13 +385,13 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-clu)"></div>
-      <span class="category-name">Kumeleme</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Clustering</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">NBA Oyuncu Performans Gruplama</div>
-        <div class="card-desc">Istatistiklere gore oyunculari otonom oyun stillerine ayirir, 3D gorsellestirmeli.</div>
+        <div class="card-title">NBA Player Performance Clustering</div>
+        <div class="card-desc">Groups players into play-style clusters based on per-game stats, with 3D visualization.</div>
         <div class="card-footer">
           <span class="tag">KMeans</span>
           <span class="tag">3D Viz</span>
@@ -379,8 +399,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Kredi Karti Musteri Segmentasyonu</div>
-        <div class="card-desc">Harcama limitleri ve bakiyelerine gore finansal profiller olusturur.</div>
+        <div class="card-title">Credit Card Customer Segmentation</div>
+        <div class="card-desc">Builds financial profiles from spending limits and balance behaviors.</div>
         <div class="card-footer">
           <span class="tag">KMeans</span>
           <span class="tag">Scaler</span>
@@ -388,8 +408,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Spotify Sarki Tarzi Kumeleme</div>
-        <div class="card-desc">Sarkilari dans edilebilirlik ve enerji gibi ozelliklere gore gruplar.</div>
+        <div class="card-title">Spotify Song Style Clustering</div>
+        <div class="card-desc">Groups songs by audio features like danceability, energy, and loudness.</div>
         <div class="card-footer">
           <span class="tag">KMeans</span>
           <span class="tag">Spotify</span>
@@ -403,21 +423,21 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-cv)"></div>
-      <span class="category-name">Bilgisayarli Goru</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Computer Vision</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Surucu Uyuklama Tespiti</div>
-        <div class="card-desc">Goz aciklik oranini (EAR) analiz ederek surucu yorgunlugunu tespit eder.</div>
+        <div class="card-title">Driver Drowsiness Detection</div>
+        <div class="card-desc">Detects driver fatigue by analyzing Eye Aspect Ratio (EAR) from facial landmarks.</div>
         <div class="card-footer">
           <span class="tag">MediaPipe</span>
           <span class="tag">EAR</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Maske Kullanimi Tespiti</div>
-        <div class="card-desc">Yukledigi fotograflardaki yuzleri tarayarak maskeli/maskesiz ayrimini yapar.</div>
+        <div class="card-title">Face Mask Detection</div>
+        <div class="card-desc">Scans uploaded photos to classify faces as masked or unmasked.</div>
         <div class="card-footer">
           <span class="tag">RandomForest</span>
           <span class="tag">64x64px</span>
@@ -425,8 +445,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">El Isaretleri ve Parmak Sayma</div>
-        <div class="card-desc">MediaPipe ile el eklem noktalarini cikararak acik parmak sayisini hesaplar.</div>
+        <div class="card-title">Hand Gesture &amp; Finger Counting</div>
+        <div class="card-desc">Extracts hand landmarks via MediaPipe to count open fingers in real time.</div>
         <div class="card-footer">
           <span class="tag">MediaPipe</span>
           <span class="tag">Realtime</span>
@@ -439,13 +459,13 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-nlp)"></div>
-      <span class="category-name">Dogal Dil Isleme</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Natural Language Processing</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">SMS Spam / Kimlik Avi Tespiti</div>
-        <div class="card-desc">Gelen metinleri TF-IDF ile analiz ederek dolandiricilik girisimlerini saptar.</div>
+        <div class="card-title">SMS Spam Detection</div>
+        <div class="card-desc">Analyzes incoming text messages with TF-IDF to detect phishing and spam attempts.</div>
         <div class="card-footer">
           <span class="tag">NaiveBayes</span>
           <span class="tag">TF-IDF</span>
@@ -453,8 +473,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">IMDb Duygu Analizi</div>
-        <div class="card-desc">Film eleshtirilerinin arkasindaki duygu durumunu siniflandirir.</div>
+        <div class="card-title">IMDb Sentiment Analysis</div>
+        <div class="card-desc">Classifies the sentiment behind movie reviews as positive or negative.</div>
         <div class="card-footer">
           <span class="tag">LogReg</span>
           <span class="tag">TF-IDF</span>
@@ -462,8 +482,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Sahte Haber Tespiti</div>
-        <div class="card-desc">Haber metinlerinin dogrulugunu ve manipulasyon riskini analiz eder.</div>
+        <div class="card-title">Fake News Detection</div>
+        <div class="card-desc">Analyzes news articles for authenticity and manipulation risk.</div>
         <div class="card-footer">
           <span class="tag">LogReg</span>
           <span class="tag">TF-IDF</span>
@@ -477,29 +497,29 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-rec)"></div>
-      <span class="category-name">Oneri Sistemleri</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Recommendation Systems</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">IMDb Film Oneri Sistemi</div>
-        <div class="card-desc">Tur ve ozet benzerliklerine (Cosine Similarity) gore film tavsiye eder.</div>
+        <div class="card-title">Movie Recommendation System</div>
+        <div class="card-desc">Recommends films based on genre and plot synopsis similarity (Cosine Similarity).</div>
         <div class="card-footer">
           <span class="tag">TF-IDF</span>
           <span class="tag">Cosine Sim</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Kitap Tavsiye Motoru</div>
-        <div class="card-desc">Yazar ve icerik ortakliklarina gore okuma listesi onerileri sunar.</div>
+        <div class="card-title">Book Recommendation Engine</div>
+        <div class="card-desc">Suggests reading lists based on author and content overlap.</div>
         <div class="card-footer">
           <span class="tag">TF-IDF</span>
           <span class="tag">Goodreads</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Sarki / Muzik Oneri Sistemi</div>
-        <div class="card-desc">Spotify ritim ve tarz benzerliklerine gore sarki kuyrugu olusturur.</div>
+        <div class="card-title">Music Recommendation System</div>
+        <div class="card-desc">Builds song queues from Spotify rhythm and genre similarity features.</div>
         <div class="card-footer">
           <span class="tag">TF-IDF</span>
           <span class="tag">Spotify</span>
@@ -512,35 +532,35 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-ts)"></div>
-      <span class="category-name">Zaman Serileri</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Time Series</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Hisse Senedi Fiyat Tahmini</div>
-        <div class="card-desc">AAPL hissesinin gecmis verilerinden gelecek gunlerin trendini cizer.</div>
+        <div class="card-title">Stock Price Prediction</div>
+        <div class="card-desc">Forecasts AAPL stock trends from historical closing prices.</div>
         <div class="card-footer">
           <span class="tag">LinearReg</span>
           <span class="tag">yfinance</span>
-          <span class="metric-pill">R² 0.975</span>
+          <span class="metric-pill">R2 0.975</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Hava Durumu / Sicaklik Tahmini</div>
-        <div class="card-desc">Tarihsel iklim verileriyle onumuzdeki gunlerin sicaklik grafiğini ongorur.</div>
+        <div class="card-title">Weather Temperature Prediction</div>
+        <div class="card-desc">Predicts upcoming daily average temperatures from historical climate data.</div>
         <div class="card-footer">
           <span class="tag">LinearReg</span>
           <span class="tag">Lag-1</span>
-          <span class="metric-pill">R² 0.912</span>
+          <span class="metric-pill">R2 0.912</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Magaza Satis Tahmini</div>
-        <div class="card-desc">Walmart haftalik satis verilerini analiz ederek gelecek ciroyu tahmin eder.</div>
+        <div class="card-title">Store Sales Prediction</div>
+        <div class="card-desc">Analyzes Walmart weekly sales data to forecast future revenue.</div>
         <div class="card-footer">
           <span class="tag">LinearReg</span>
-          <span class="tag">Sentetik</span>
-          <span class="metric-pill">R² 0.767</span>
+          <span class="tag">Synthetic</span>
+          <span class="metric-pill">R2 0.767</span>
         </div>
       </div>
     </div>
@@ -550,29 +570,29 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-viz)"></div>
-      <span class="category-name">Veri Gorsellestirme</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Data Visualization</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Kuresel Sosyal Medya Istatistikleri</div>
-        <div class="card-desc">Platform bazli gunluk kullanim sureleri ve yas gruplari duygu dagilimlarini gosterir.</div>
+        <div class="card-title">Global Social Media Statistics</div>
+        <div class="card-desc">Visualizes platform-level daily usage times and age-group sentiment distributions.</div>
         <div class="card-footer">
           <span class="tag">Plotly</span>
           <span class="tag">Dashboard</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Iklim Degisikligi & CO2 Salinimi</div>
-        <div class="card-desc">Ulkelerin fosil yakit kaynakli CO2 emisyon trendlerini interaktif karsilastirir.</div>
+        <div class="card-title">Climate Change &amp; CO2 Emissions</div>
+        <div class="card-desc">Interactive comparison of country-level fossil fuel CO2 emission trends.</div>
         <div class="card-footer">
           <span class="tag">Plotly</span>
-          <span class="tag">Interaktif</span>
+          <span class="tag">Interactive</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">E-Ticaret Satis Dashboard</div>
-        <div class="card-desc">Online magazanin toplam cirosunu, ulke dagilimlarini ve en cok satanlari grafiklestirir.</div>
+        <div class="card-title">E-Commerce Sales Dashboard</div>
+        <div class="card-desc">Charts total revenue, country distributions, and top-selling products.</div>
         <div class="card-footer">
           <span class="tag">Plotly</span>
           <span class="tag">Dashboard</span>
@@ -585,13 +605,13 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-dl)"></div>
-      <span class="category-name">Derin Ogrenme</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">Deep Learning</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Gogus Rontgeninden Zaturre Teshisi</div>
-        <div class="card-desc">X-Ray gorsellerini CNN ile tarayarak zaturre (Pneumonia) teshisi koyar.</div>
+        <div class="card-title">Pneumonia Detection from X-Ray</div>
+        <div class="card-desc">CNN model that scans chest X-ray images to diagnose pneumonia.</div>
         <div class="card-footer">
           <span class="tag">CNN</span>
           <span class="tag">Keras</span>
@@ -599,8 +619,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Yuz Ifadesinden Duygu Tanima</div>
-        <div class="card-desc">Insan yuzundeki mimiklerden baskin duygu durumunu tahmin eden CNN modeli.</div>
+        <div class="card-title">Facial Emotion Recognition</div>
+        <div class="card-desc">CNN model predicting dominant emotion from human facial expressions.</div>
         <div class="card-footer">
           <span class="tag">CNN</span>
           <span class="tag">FER2013</span>
@@ -608,8 +628,8 @@ body {
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Metin Uretim Robotu</div>
-        <div class="card-desc">Markov zinciri ile kelime bazli olasilik zincirleri uzerinden metin olusturur.</div>
+        <div class="card-title">Text Generation Bot</div>
+        <div class="card-desc">Generates text using word-level Markov chain probability transitions.</div>
         <div class="card-footer">
           <span class="tag">Markov</span>
           <span class="tag">Shakespeare</span>
@@ -622,29 +642,29 @@ body {
   <div class="category-section">
     <div class="category-header">
       <div class="category-dot" style="background:var(--cat-ai)"></div>
-      <span class="category-name">Yapay Zeka Ajanlari</span>
-      <span class="category-count">3 proje</span>
+      <span class="category-name">AI Agents</span>
+      <span class="category-count">3 projects</span>
     </div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="card-title">Akilli Tarim ve Sulama Ajani</div>
-        <div class="card-desc">Toprak nemi ve buhaslasma riskine gore sulama kararlarini otonom alan ajan.</div>
+        <div class="card-title">Smart Farming &amp; Irrigation Agent</div>
+        <div class="card-desc">Autonomous agent making irrigation decisions based on soil moisture and evaporation risk.</div>
         <div class="card-footer">
           <span class="tag">Rule-based</span>
           <span class="tag">Decision Tree</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">SSS Destek ve Niyet Analizi Ajani</div>
-        <div class="card-desc">Musteri mesajlarinin niyetini cozerek otonom departman yonlendirmesi yapar.</div>
+        <div class="card-title">FAQ Support &amp; Intent Analysis Agent</div>
+        <div class="card-desc">Resolves customer message intent for autonomous department routing.</div>
         <div class="card-footer">
           <span class="tag">Intent Clf</span>
           <span class="tag">NLP</span>
         </div>
       </div>
       <div class="project-card">
-        <div class="card-title">Otonom Arac Simulasyon Ajani</div>
-        <div class="card-desc">Sensor verilerine gore serit takip, acil fren ve otonom park kararlarini simule eder.</div>
+        <div class="card-title">Autonomous Vehicle Simulation Agent</div>
+        <div class="card-desc">Simulates lane-keeping, emergency braking, and autonomous parking from sensor data.</div>
         <div class="card-footer">
           <span class="tag">Simulation</span>
           <span class="tag">Sensor</span>
@@ -655,7 +675,7 @@ body {
 
   <!-- TECH STACK -->
   <div class="tech-section">
-    <div class="tech-title">Teknoloji Yigini</div>
+    <div class="tech-title">Tech Stack</div>
     <div class="tech-grid">
       <span class="tech-tag">Python</span>
       <span class="tech-tag">Streamlit</span>
@@ -669,12 +689,23 @@ body {
       <span class="tech-tag">Joblib</span>
       <span class="tech-tag">Kaggle API</span>
       <span class="tech-tag">TF-IDF</span>
+      <span class="tech-tag">Hugging Face Hub</span>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <div class="links-section">
+    <div class="tech-title">Links</div>
+    <div class="links-grid">
+      <a class="link-card" href="https://github.com/oktaybobus/DataScientst" target="_blank">GitHub Repo</a>
+      <a class="link-card" href="https://huggingface.co/OKTAYBBS/DataScientst-models" target="_blank">HF Models</a>
+      <a class="link-card" href="https://oktaybobus-datascientst.streamlit.app" target="_blank">Live Demo</a>
     </div>
   </div>
 
   <div class="footer">
     <span>Ali Oktay Bobus -- Data Science Portfolio</span>
-    <span>30 proje &middot; 34 model &middot; 10 kategori</span>
+    <span>30 projects &middot; 34 models &middot; 10 categories</span>
   </div>
 
 </div>

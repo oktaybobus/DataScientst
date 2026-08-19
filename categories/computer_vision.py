@@ -15,58 +15,56 @@ from components import show_dataset_info, show_model_metrics
 
 
 def render():
-    project = st.sidebar.selectbox("Bir Proje Seçin", [
-        "Sürücü Uyuklama Tespiti",
-        "Maske Kullanımı Tespiti",
-        "El İşaretleri ve Parmak Sayma"
+    project = st.sidebar.selectbox("Select a Project", [
+        "Driver Drowsiness Detection",
+        "Face Mask Detection",
+        "Hand Gesture & Finger Counting"
     ])
 
-    # ----------------- 1. SÜRÜCÜ UYUKLAMA TESPİTİ -----------------
-    if project == "Sürücü Uyuklama Tespiti":
-        st.header("👁️ Sürücü Uyuklama / Yorgunluk Tespiti")
-        st.write("Fotoğraf yükleyerek göz durumunu (Açık/Kapalı) analiz edin.")
+    # ----------------- 1. DRIVER DROWSINESS DETECTION -----------------
+    if project == "Driver Drowsiness Detection":
+        st.header("👁️ Driver Drowsiness / Fatigue Detection")
+        st.write("Upload a photo to analyze eye status (Open/Closed).")
 
         show_dataset_info("drowsy")
 
-        with st.expander("⚠️ Bu Modül Nasıl Çalışıyor? (Not: Şu An Simülasyon)"):
+        with st.expander("⚠️ How Does This Module Work? (Note: Currently Simulation)"):
             st.code(TRAIN_CODE["drowsy"], language="python")
 
         show_model_metrics("drowsy")
 
-        uploaded_file = st.file_uploader("Bir Sürücü Fotoğrafı Yükleyin", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Upload a Driver Photo", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             image = Image.open(uploaded_file)
-            st.image(image, caption="Yüklenen Resim", width=400)
+            st.image(image, caption="Uploaded Image", width=400)
 
             # Görsel işleme simülasyonu (EAR - Eye Aspect Ratio mantığı)
-            # Normal şartlarda dlib veya mediapipe mesh ile göz kırpması sayılır
-            st.info("🔄 Göz noktaları taranıyor...")
+            st.info("🔄 Scanning eye landmarks...")
 
-            # Örnek bir mantık çalıştırma (Proje iskeleti için)
-            result = np.random.choice(["Uyanık - Yolculuğa Hazır ✅", "Yorgun / Uykulu - Mola Verilmeli! ⚠️"])
-            if "Uyanık" in result:
-                st.success(f"Durum: {result}")
+            result = np.random.choice(["Awake - Ready to Drive ✅", "Drowsy / Sleepy - Take a Break! ⚠️"])
+            if "Awake" in result:
+                st.success(f"Status: {result}")
             else:
-                st.error(f"Durum: {result}")
+                st.error(f"Status: {result}")
 
-    # ----------------- 2. MASKE KULLANIMI TESPİTİ -----------------
-    elif project == "Maske Kullanımı Tespiti":
-        st.header("😷 Maske Kullanımı Tespiti")
-        st.write("Yüz fotoğrafı yükleyin ve maske olup olmadığını kontrol edin.")
+    # ----------------- 2. FACE MASK DETECTION -----------------
+    elif project == "Face Mask Detection":
+        st.header("😷 Face Mask Detection")
+        st.write("Upload a face photo and check whether a mask is being worn.")
 
         show_dataset_info("mask")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["mask"], language="python")
 
         show_model_metrics("mask")
 
-        uploaded_file = st.file_uploader("Yüz Fotoğrafı Seçin", type=["jpg", "jpeg", "png"], key="mask")
+        uploaded_file = st.file_uploader("Select a Face Photo", type=["jpg", "jpeg", "png"], key="mask")
 
         if uploaded_file is not None:
             image = Image.open(uploaded_file)
-            st.image(image, caption="Analiz Edilen Resim", width=400)
+            st.image(image, caption="Analyzed Image", width=400)
 
             try:
                 # Resmi OpenCV formatına çevirme ve ön işleme
@@ -87,32 +85,32 @@ def render():
                 pred = model.predict(flattened_img)[0]
 
                 if pred == 0:
-                    st.success("😷 Maske Tespit Edildi. Güvenli Bölge!")
+                    st.success("😷 Mask Detected. Safe Zone!")
                 else:
-                    st.error("⚠️ Maske Bulunamadı! Lütfen maskenizi takın.")
+                    st.error("⚠️ No Mask Found! Please wear your mask.")
             except Exception as e:
-                st.warning("Model dosyası eksik veya resim formatı uyumsuz. Simülasyon modu aktif.")
-                st.info(f"Tahmin: {np.random.choice(['Maskeli ✅', 'Maskesiz ❌'])}")
+                st.warning("Model file missing or image format incompatible. Simulation mode active.")
+                st.info(f"Prediction: {np.random.choice(['With Mask ✅', 'Without Mask ❌'])}")
 
-    # ----------------- 3. EL İŞARETLERİ VE PARMAK SAYMA -----------------
-    elif project == "El İşaretleri ve Parmak Sayma":
-        st.header("✌️ El İşaretleri ve Parmak Sayma")
-        st.write("Yüklediğiniz el resmindeki eklem noktalarını (MediaPipe) çıkartır ve parmak sayar.")
+    # ----------------- 3. HAND GESTURE & FINGER COUNTING -----------------
+    elif project == "Hand Gesture & Finger Counting":
+        st.header("✌️ Hand Gesture & Finger Counting")
+        st.write("Extracts hand joint landmarks (MediaPipe) from an uploaded image and counts fingers.")
 
         show_dataset_info("hand")
 
-        with st.expander("ℹ️ Bu Modül Nasıl Çalışıyor? (Pretrained Model)"):
+        with st.expander("ℹ️ How Does This Module Work? (Pretrained Model)"):
             st.code(TRAIN_CODE["hand"], language="python")
 
         show_model_metrics("hand")
 
-        uploaded_file = st.file_uploader("Net bir el fotoğrafı yükleyin", type=["jpg", "jpeg", "png"], key="hand")
+        uploaded_file = st.file_uploader("Upload a clear hand photo", type=["jpg", "jpeg", "png"], key="hand")
 
         if uploaded_file is not None:
             image = np.array(Image.open(uploaded_file))
 
             if not HAS_MEDIAPIPE:
-                st.warning("MediaPipe kutuphanesi bu ortamda mevcut degil. El tespiti devre disi.")
+                st.warning("MediaPipe library is not available in this environment. Hand detection is disabled.")
                 st.image(image, width=400)
                 return
 
@@ -125,22 +123,21 @@ def render():
                 results = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
                 if results.multi_hand_landmarks:
-                    st.success("🖐️ El eklem noktaları başarıyla tespit edildi!")
+                    st.success("🖐️ Hand landmarks successfully detected!")
                     annotated_image = image.copy()
 
                     for hand_landmarks in results.multi_hand_landmarks:
                         # Eklem noktalarını resmin üzerine çizme
                         mp_drawing.draw_landmarks(annotated_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-                        # Basit parmak sayma algoritması (Baş parmak hariç uç noktaların alt noktalardan yukarıda olması durumu)
-                        # İşaret, Orta, Yüzük, Serçe parmak uçları: 8, 12, 16, 20
+                        # Basit parmak sayma algoritması
                         finger_ids = [8, 12, 16, 20]
                         opened_fingers = 0
                         for f_id in finger_ids:
                             if hand_landmarks.landmark[f_id].y < hand_landmarks.landmark[f_id - 2].y:
                                 opened_fingers += 1
 
-                    st.image(annotated_image, caption=f"Analiz Sonucu: Yaklaşık {opened_fingers} parmak açık!", width=500)
+                    st.image(annotated_image, caption=f"Analysis Result: Approximately {opened_fingers} fingers open!", width=500)
                 else:
-                    st.warning("Resimde net bir el bulunamadı. Lütfen elinizin kameraya düz baktığı bir fotoğraf seçin.")
+                    st.warning("No clear hand found in the image. Please select a photo where your hand faces the camera directly.")
                     st.image(image, width=400)

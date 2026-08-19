@@ -5,112 +5,112 @@ from components import show_dataset_info, show_model_metrics
 
 
 def render():
-    project = st.sidebar.selectbox("Bir Ajan Senaryosu Seçin", [
-        "Akıllı Tarım ve Sulama Ajanı",
-        "SSS Destek ve Niyet Analizi Ajanı",
-        "Otonom Araç Simülasyon Ajanı"
+    project = st.sidebar.selectbox("Select an Agent Scenario", [
+        "Smart Farming & Irrigation Agent",
+        "FAQ Support & Intent Analysis Agent",
+        "Autonomous Vehicle Simulation Agent"
     ])
 
-    # ----------------- 1. AKILLI TARIM VE SULAMA AJANI -----------------
-    if project == "Akıllı Tarım ve Sulama Ajanı":
-        st.header("🌾 Akıllı Tarım ve Sulama Karar Ajanı")
-        st.write("Ajan; toprak nemi, sıcaklık ve güneş ışığı verilerini anlık izleyerek su israfını önleyecek otonom kararlar alır.")
+    # ----------------- 1. SMART FARMING & IRRIGATION AGENT -----------------
+    if project == "Smart Farming & Irrigation Agent":
+        st.header("🌾 Smart Farming & Irrigation Decision Agent")
+        st.write("The agent monitors soil moisture, temperature, and sunlight data in real-time to make autonomous decisions that prevent water waste.")
 
         show_dataset_info("farm_agent")
 
-        with st.expander("⚙️ Ajanın Karar Mantığını Gör"):
+        with st.expander("⚙️ View Agent Decision Logic"):
             st.code(TRAIN_CODE["farm_agent"], language="python")
 
         show_model_metrics("farm_agent")
 
         col1, col2 = st.columns(2)
         with col1:
-            soil_moisture = st.slider("Toprak Nem Oranı (%)", 0, 100, 25)
-            temperature = st.slider("Hava Sıcaklığı (°C)", -10, 50, 32)
-            sunlight = st.select_slider("Güneş Işığı Şiddeti", options=["Düşük", "Orta", "Yüksek"])
+            soil_moisture = st.slider("Soil Moisture (%)", 0, 100, 25)
+            temperature = st.slider("Air Temperature (°C)", -10, 50, 32)
+            sunlight = st.select_slider("Sunlight Intensity", options=["Low", "Medium", "High"])
 
         with col2:
-            st.subheader("🤖 Ajanın Otonom Karar Mekanizması")
-            if st.button("Sensör Verilerini Analiz Et"):
-                st.info("🔄 Tarım ajanı sensör loglarını okuyor ve buharlaşma riskini hesaplıyor...")
+            st.subheader("🤖 Agent's Autonomous Decision Mechanism")
+            if st.button("Analyze Sensor Data"):
+                st.info("🔄 The farming agent is reading sensor logs and calculating evaporation risk...")
 
                 # Otonom Karar Ağacı Mantığı
-                if soil_moisture < 30 and temperature > 30 and sunlight == "Yüksek":
-                    st.error("🚨 KARAR: Acil Yoğun Sulama Gerekli! (Buharlaşma riski yüksek, toprak kritik seviyede kuru).")
-                    st.metric("Tavsiye Edilen Su Miktarı", "45 Litre / m²")
+                if soil_moisture < 30 and temperature > 30 and sunlight == "High":
+                    st.error("🚨 DECISION: Urgent Heavy Irrigation Required! (High evaporation risk, soil is critically dry).")
+                    st.metric("Recommended Water Amount", "45 Liters / m²")
                 elif soil_moisture < 40 and temperature > 15:
-                    st.warning("⚠️ KARAR: Standart Sulama Başlatıldı. (Toprak nemi ideal sınırın altında).")
-                    st.metric("Tavsiye Edilen Su Miktarı", "20 Litre / m²")
+                    st.warning("⚠️ DECISION: Standard Irrigation Started. (Soil moisture is below ideal threshold).")
+                    st.metric("Recommended Water Amount", "20 Liters / m²")
                 else:
-                    st.success("✅ KARAR: Sulama Gerekli Değil. (Toprak nemi yeterli, su tasarrufu modu aktif).")
-                    st.metric("Tavsiye Edilen Su Miktarı", "0 Litre / m²")
+                    st.success("✅ DECISION: No Irrigation Needed. (Soil moisture is sufficient, water-saving mode active).")
+                    st.metric("Recommended Water Amount", "0 Liters / m²")
 
-    # ----------------- 2. SSS DESTEK VE NİYET ANALİZİ AJANI -----------------
-    elif project == "SSS Destek ve Niyet Analizi Ajanı":
-        st.header("💬 SSS Destek ve Niyet Analizi Ajanı")
-        st.write("Kurumsal müşteri ajanı, gelen mesajın arkasındaki niyetini (Intent) otonom analiz ederek doğru aksiyonu tetikler.")
+    # ----------------- 2. FAQ SUPPORT & INTENT ANALYSIS AGENT -----------------
+    elif project == "FAQ Support & Intent Analysis Agent":
+        st.header("💬 FAQ Support & Intent Analysis Agent")
+        st.write("The corporate customer agent autonomously analyzes the intent behind incoming messages and triggers the appropriate action.")
 
         show_dataset_info("faq_agent")
 
-        with st.expander("⚙️ Ajanın Karar Mantığını Gör"):
+        with st.expander("⚙️ View Agent Decision Logic"):
             st.code(TRAIN_CODE["faq_agent"], language="python")
 
         show_model_metrics("faq_agent")
 
-        user_message = st.text_area("Müşteri Mesajı (Örnek metni değiştirebilirsiniz):",
-                                    "Merhaba, 3 gün önce verdiğim sipariş hâlâ kargoya verilmedi. İptal edip paramı geri almak istiyorum.")
+        user_message = st.text_area("Customer Message (you can modify the sample text):",
+                                    "Hello, I placed an order 3 days ago and it still hasn't been shipped. I want to cancel and get a refund.")
 
-        if st.button("Mesajı Ajan ile İşle"):
-            st.info("🔄 Ajan niyet analizi (Intent Classification) ve anahtar kelime taraması yapıyor...")
+        if st.button("Process Message with Agent"):
+            st.info("🔄 The agent is performing intent classification and keyword scanning...")
 
             # Basit kural tabanlı niyet yakalama simülasyonu
             msg_lower = user_message.lower()
 
-            if "i̇ade" in msg_lower or "iptal" in msg_lower or "para" in msg_lower:
-                intent = "🚨 Finans / İade ve İptal Talebi"
-                action = "Müşterinin fatura geçmişi doğrulandı. İptal talebi otonom olarak Muhasebe departmanına aktarıldı ve iade süreci başlatıldı."
-            elif "kargo" in msg_lower or "sipariş" in msg_lower or "nerede" in msg_lower:
-                intent = "📦 Lojistik / Kargo ve Teslimat Takibi"
-                action = "Sipariş numarası tespit edilmeye çalışılıyor. Sistem otonom olarak Yurtiçi Kargo API'sine sorgu gönderdi."
+            if "refund" in msg_lower or "cancel" in msg_lower or "money" in msg_lower:
+                intent = "🚨 Finance / Refund and Cancellation Request"
+                action = "Customer's invoice history verified. Cancellation request autonomously forwarded to the Accounting department and refund process initiated."
+            elif "shipping" in msg_lower or "order" in msg_lower or "where" in msg_lower or "shipped" in msg_lower:
+                intent = "📦 Logistics / Shipping and Delivery Tracking"
+                action = "Attempting to locate order number. The system autonomously sent a tracking query to the shipping carrier API."
             else:
-                intent = "💬 Genel / Teşekkür - Bilgi Talebi"
-                action = "Mesaj standart SSS havuzuna yönlendirildi. Ajan otomatik yapay zeka cevabını hazırlıyor."
+                intent = "💬 General / Thank You - Information Request"
+                action = "Message routed to the standard FAQ pool. The agent is preparing an automated AI response."
 
-            st.subheader("🤖 Ajan Analiz Raporu:")
-            st.write(f"**Tespit Edilen Niyet:** {intent}")
-            st.success(f"**Otonom Alınan Aksiyon:** {action}")
+            st.subheader("🤖 Agent Analysis Report:")
+            st.write(f"**Detected Intent:** {intent}")
+            st.success(f"**Autonomous Action Taken:** {action}")
 
-    # ----------------- 3. OTONOM ARAÇ SİMÜLASYON AJANI -----------------
-    elif project == "Otonom Araç Simülasyon Ajanı":
-        st.header("🚗 Otonom Araç Şerit Takip ve Park Ajanı")
-        st.write("Sanal araç ajanı, sensör girdilerini değerlendirerek şeritte kalma ve otonom park kararlarını simüle eder.")
+    # ----------------- 3. AUTONOMOUS VEHICLE SIMULATION AGENT -----------------
+    elif project == "Autonomous Vehicle Simulation Agent":
+        st.header("🚗 Autonomous Vehicle Lane Tracking & Parking Agent")
+        st.write("The virtual vehicle agent evaluates sensor inputs to simulate lane-keeping and autonomous parking decisions.")
 
         show_dataset_info("autonomous_car")
 
-        with st.expander("⚙️ Ajanın Karar Mantığını Gör"):
+        with st.expander("⚙️ View Agent Decision Logic"):
             st.code(TRAIN_CODE["autonomous_car"], language="python")
 
         show_model_metrics("autonomous_car")
 
-        sensor_distance = st.slider("Ön Araç ile Mesafe (Metre)", 1, 100, 15)
-        lane_status = st.selectbox("Şerit Çizgisi Durumu", ["Net Görünür", "Kesikli / Silik", "Şerit Yok"])
-        parking_slot = st.checkbox("Boş Park Yeri Tespit Edildi mi?")
+        sensor_distance = st.slider("Distance to Front Vehicle (Meters)", 1, 100, 15)
+        lane_status = st.selectbox("Lane Marking Status", ["Clearly Visible", "Dashed / Faded", "No Lane Markings"])
+        parking_slot = st.checkbox("Empty Parking Spot Detected?")
 
-        if st.button("Araç Ajanını Çalıştır"):
-            st.subheader("🎬 Sürüş Esnasında Ajan Kararları:")
+        if st.button("Run Vehicle Agent"):
+            st.subheader("🎬 Agent Decisions During Driving:")
 
             # Şerit takip kararı
-            if lane_status == "Net Görünür":
-                st.success("🟢 ŞERİT TAKİP: Kameralar aktif. Şerit ortalanarak otonom sürüş güvenle sürdürülüyor.")
+            if lane_status == "Clearly Visible":
+                st.success("🟢 LANE TRACKING: Cameras active. Autonomous driving safely continues with centered lane positioning.")
             else:
-                st.warning("🟡 ŞERİT UYARISI: Şerit çizgileri yetersiz! Ajan, direksiyon kontrolünü sürücüye devretme hazırlığı yapıyor.")
+                st.warning("🟡 LANE WARNING: Lane markings insufficient! Agent is preparing to hand over steering control to the driver.")
 
             # Mesafe ve Fren kararı
             if sensor_distance < 20:
-                st.error(f"🔴 ACİL FREN: Ön araçla mesafe {sensor_distance} metreye düştü! Güvenli takip mesafesi ihlali nedeniyle otonom fren yapıldı.")
+                st.error(f"🔴 EMERGENCY BRAKE: Distance to front vehicle dropped to {sensor_distance} meters! Autonomous braking applied due to safe following distance violation.")
             else:
-                st.success("🟢 HIZ KONTROLÜ: Mesafe güvenli. Belirlenen hız sınırında otonom sürüşe devam ediliyor.")
+                st.success("🟢 SPEED CONTROL: Distance is safe. Autonomous driving continues at the set speed limit.")
 
             # Park Kararı
             if parking_slot and sensor_distance > 30:
-                st.info("🔵 OTONOM PARK: Boş park yeri algılandı. Araç hızı düşürülüyor ve otonom dikey park algoritması başlatılıyor.")
+                st.info("🔵 AUTONOMOUS PARKING: Empty parking spot detected. Vehicle speed is being reduced and the autonomous perpendicular parking algorithm is starting.")

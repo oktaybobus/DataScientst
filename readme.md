@@ -1,109 +1,126 @@
-# 🚀 10 Kategoride 30 Projelik Makine Öğrenmesi & Yapay Zeka Portfolyosu
+# DataScientst -- 30-Project Machine Learning & AI Portfolio
 
-Bu proje, veri bilimi ve yapay zeka alanındaki temel ve ileri düzey metodolojileri içeren, **10 farklı kategoride toplam 30 adet** projenin tek bir Streamlit arayüzünde birleştirildiği kapsamlı bir akademik portfolyo çalışmasıdır.
+A comprehensive data science portfolio covering **10 categories** with **30 projects** and **34 trained models**, served through a single interactive Streamlit web application.
 
-Uygulama üzerindeki tüm modeller **Kaggle API** aracılığıyla gerçek veri setleri kullanılarak eğitilmiş, optimize edilmiş ve canlıya alınmıştır.
+All models are trained on real-world **Kaggle datasets** using scikit-learn, TensorFlow/Keras, and classical ML techniques. Models are hosted on [Hugging Face Hub](https://huggingface.co/OKTAYBBS/DataScientst-models) and automatically downloaded at runtime.
 
----
+## Live Demo
 
-## 🗺️ Portfolyo Genel Mimarisi ve Projeler
+| Platform | Link |
+|----------|------|
+| Streamlit App | [oktaybobus-datascientst.streamlit.app](https://oktaybobus-datascientst.streamlit.app) |
+| HF Portfolio | [huggingface.co/spaces/OKTAYBBS/DataScientst](https://huggingface.co/spaces/OKTAYBBS/DataScientst) |
+| HF Models | [huggingface.co/OKTAYBBS/DataScientst-models](https://huggingface.co/OKTAYBBS/DataScientst-models) |
 
-Uygulama sol tarafta yer alan dinamik bir menü üzerinden kontrol edilmektedir ve şu 10 ana kategoriyi/projeleri içerir:
+## Projects Overview
 
-### 1. 📊 Regresyon (Regression)
-*   **Altın Fiyatı Tahmini:** Küresel finansal endeksleri (S&P 500, Petrol, Gümüş, EUR/USD) kullanarak altın fiyat trendini tahmin eder.
-*   **Öğrenci Sınav Puanı Tahmini:** Sosyal ve eğitsel demografi verilerine dayanarak öğrencinin matematik notunu öngörür.
-*   **Uber/Taksi Ücret Tahmini:** Canlı harita entegrasyonu ile enlem/boylam ve yolcu sayısına göre yolculuk maliyetini hesaplar.
+### 1. Regression (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| Gold Price Prediction | RandomForestRegressor | R² = 0.990 |
+| Student Exam Score Prediction | RandomForestRegressor | R² = 0.849 |
+| Uber/Taxi Fare Prediction | RandomForestRegressor | R² = 0.778 |
 
-### 2. 🔵 Sınıflandırma (Classification)
-*   **Mobil Cihaz Fiyat Segmenti:** Telefonların donanımsal özelliklerine (RAM, Batarya vb.) göre hangi fiyat sınıfına ait olduğunu bulur.
-*   **Şarap Kalitesi Sınıflandırması:** Kimyasal ölçümlere (pH, alkol, asitlik) göre şarap kalitesini puanlar.
-*   **Müşteri Terki (Churn) Tahmini:** Telekomünikasyon müşterilerinin kullanım alışkanlıklarına göre şirketten ayrılma riskini hesaplar.
+### 2. Classification (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| Mobile Device Price Segment | RandomForestClassifier | Accuracy = 81.2% |
+| Wine Quality Classification | RandomForestClassifier | Accuracy = 67.5% |
+| Customer Churn Prediction | RandomForestClassifier | Accuracy = 78.9% |
 
-### 3. 🟡 Kümeleme (Clustering)
-*   **NBA Oyuncu Performans Gruplaması:** Maç başına istatistiklere göre oyuncuları otonom oyun stillerine ayırır (3D Görselleştirmeli).
-*   **Kredi Kartı Müşteri Segmentasyonu:** Banka müşterilerinin harcama limitleri ve bakiyelerine göre finansal profiller oluşturur.
-*   **Spotify Şarkı Tarzı Kümeleme:** Şarkıların dans edilebilirlik ve enerji gibi müzikal karakterlerine göre atmosfer gruplaması yapar.
+### 3. Clustering (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| NBA Player Performance Clustering | KMeans | Silhouette = 0.452 |
+| Credit Card Customer Segmentation | KMeans | Silhouette = 0.531 |
+| Spotify Song Style Clustering | KMeans | Silhouette = 0.327 |
 
-### 4. 📷 Bilgisayarlı Görü (Computer Vision)
-*   **Sürücü Uyuklama Tespiti:** Göz açıklık oranını (EAR) analiz ederek sürücü yorgunluk durumunu tespit eder.
-*   **Maske Kullanımı Tespiti:** Yüklenen fotoğraflardaki yüzleri tarayarak maskeli/maskesiz ayrımı yapar.
-*   **El İşaretleri ve Parmak Sayma:** `MediaPipe` kütüphanesi ile el eklem noktalarını çıkartarak açık parmak sayısını hesaplar.
+### 4. Computer Vision (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| Driver Drowsiness Detection | MediaPipe + EAR | -- |
+| Face Mask Detection | RandomForestClassifier | Accuracy = 82.5% |
+| Hand Gesture & Finger Counting | MediaPipe Hands | -- |
 
-### 5. 📝 Doğal Dil İşleme (NLP)
-*   **SMS Spam / Kimlik Avı Tespiti:** Gelen metinleri TF-IDF ile analiz ederek dolandırıcılık veya spam girişimlerini saptar.
-*   **IMDb Yorumları Duygu Analizi:** Film eleştirilerinin arkasındaki duygu durumunun olumlu mu yoksa olumsuz mu olduğunu sınıflandırır.
-*   **Sahte Haber Tespiti:** Haber metinlerinin doğruluğunu ve manipülasyon riskini analiz eder.
+### 5. Natural Language Processing (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| SMS Spam Detection | MultinomialNB + TF-IDF | Accuracy = 98.0% |
+| IMDb Sentiment Analysis | LogisticRegression + TF-IDF | Accuracy = 87.3% |
+| Fake News Detection | LogisticRegression + TF-IDF | Accuracy = 97.6% |
 
-### 6. 🍿 Öneri Sistemleri (Recommendation Systems)
-*   **IMDb Film Öneri Sistemi:** Tür ve özet benzerliklerine (Cosine Similarity) göre film tavsiye eder.
-*   **Kitap Tavsiye Motoru:** Yazar ve içerik ortaklıklarına göre okuma listesi önerileri sunar.
-*   **Şarkı / Müzik Öneri Sistemi:** Spotify ritim ve tarz benzerliklerine göre şarkı kuyruğu oluşturur.
+### 6. Recommendation Systems (3 projects)
+| Project | Method |
+|---------|--------|
+| Movie Recommendation System | TF-IDF + Cosine Similarity |
+| Book Recommendation Engine | TF-IDF + Cosine Similarity |
+| Music Recommendation System | TF-IDF + Cosine Similarity |
 
-### 7. 📈 Zaman Serileri (Time Series)
-*   **Hisse Senedi Fiyat Tahmini:** Apple (AAPL) hissesinin geçmiş verilerinden yararlanarak gelecek günlerin trendini çizer.
-*   **Hava Durumu / Sıcaklık Tahmini:** Tarihsel iklim verileriyle önümüzdeki günlerin ortalama sıcaklık grafiğini öngörür.
-*   **Mağaza Satış Tahmini:** Walmart haftalık satış verilerini analiz ederek gelecek dönem ciro talebini hesaplar.
+### 7. Time Series (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| Stock Price Prediction (AAPL) | LinearRegression | R² = 0.975 |
+| Weather Temperature Prediction | LinearRegression | R² = 0.912 |
+| Store Sales Prediction | LinearRegression | R² = 0.767 |
 
-### 8. 📊 Veri Görselleştirme (Data Viz)
-*   **Küresel Sosyal Medya İstatistikleri:** Platform bazlı günlük kullanım sürelerini ve yaş gruplarının duygu dağılımlarını gösterir.
-*   **İklim Değişikliği & Karbon Salınımı:** Ülkelerin fosil yakıt kaynaklı CO2 emisyon trendlerini interaktif olarak kıyaslar.
-*   **E-Ticaret Satış Dashboard:** Online mağazanın toplam cirosunu, ülke dağılımlarını ve en çok satan ürünlerini grafikleştirir.
+### 8. Data Visualization (3 projects)
+| Project | Tools |
+|---------|-------|
+| Global Social Media Statistics | Plotly Express |
+| Climate Change & CO2 Emissions | Plotly Express |
+| E-Commerce Sales Dashboard | Plotly Express |
 
-### 9. 🧠 Derin Öğrenme (Deep Learning)
-*   **Göğüs Röntgeninden Zatürre Teşhisi:** X-Ray görsellerini Evrişimli Sinir Ağları (CNN) ile tarayarak zatürre (Pneumonia) teşhisi koyar.
-*   **Yüz İfadesinden Duygu Tanıma:** İnsan yüzündeki mimiklerden baskın duygu durumunu (Öfkeli, Mutlu, Üzgün) tahmin eden CNN modelidir.
-*   **Metin Üretim Robotu:** Karakter/Kelime tabanlı olasılık zincirleri ile verilen kelimeden otonom metinler üretir.
+### 9. Deep Learning (3 projects)
+| Project | Model | Metric |
+|---------|-------|--------|
+| Pneumonia Detection from X-Ray | CNN (Keras) | Val Acc = 92.5% |
+| Facial Emotion Recognition | CNN (Keras) | Val Acc = 65.4% |
+| Text Generation Bot | Markov Chain | -- |
 
-### 10. 🤖 Yapay Zeka Ajanları (AI Agents)
-*   **Akıllı Tarım ve Sulama Ajanı:** Toprak nemi ve buharlaşma riskine göre sulama kararlarını otonom alan karar ağacı ajanı.
-*   **SSS Destek ve Niyet Analizi Ajanı:** Müşteri mesajlarının arkasındaki gerçek niyeti çözerek otonom departman yönlendirmesi yapan ajan.
-*   **Otonom Araç Simülasyon Ajanı:** Sensör verilerine göre şerit takip, acil fren ve otonom park kararlarını simüle eden araç ajanı.
+### 10. AI Agents (3 projects)
+| Project | Type |
+|---------|------|
+| Smart Farming & Irrigation Agent | Rule-based Decision Tree |
+| FAQ Support & Intent Analysis Agent | Intent Classification |
+| Autonomous Vehicle Simulation Agent | Sensor-based Simulation |
 
----
+## Architecture
 
-## 🛠️ Kurulum ve Yerelde Çalıştırma
-
-Projenizi kendi bilgisayarınızda test etmek için aşağıdaki adımları takip edebilirsiniz:
-
-1. Bu depoyu bilgisayarınıza indirin:
-   ```bash
-   git clone https://github.com
-   cd REPO_ADINIZ
-   ```
-
-2. Gerekli kütüphaneleri yükleyin:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Modelleri Kaggle üzerinden eğitip `models/` klasörüne kaydetmek için eğitim scriptlerini çalıştırın (Örn):
-   ```bash
-   python train_regression.py
-   python train_classification.py
-   # (Tüm kategorilerin train scriptleri çalıştırılmalıdır)
-   ```
-
-4. Streamlit uygulamasını başlatın:
-   ```bash
-   streamlit run app.py
-   ```
-
----
-
-## 📦 Proje Dosya Yapısı
-
-```text
-├── 📄 app.py                     # Ana Streamlit arayüz kodları
-├── 📄 requirements.txt           # Bağımlı kütüphaneler listesi
-├── 📄 README.md                  # Proje açıklama dokümanı
-├── 📁 models/                    # Eğitilmiş tüm .pkl, .scaler ve .h5 dosyaları
-└── 📁 scripts/                   # Modelleri eğiten train_...py kodları
+```
+app.py                  # Main Streamlit router (55 lines)
+model_loader.py         # HF Hub model downloader with local fallback
+components.py           # Shared UI components (metrics, dataset info)
+dataset_info.py         # Dataset descriptions and metadata
+train_codes.py          # Training code snippets for display
+categories/
+  regression.py         # 3 regression projects
+  classification.py     # 3 classification projects
+  clustering.py         # 3 clustering projects
+  computer_vision.py    # 3 CV projects
+  nlp.py                # 3 NLP projects
+  recommendation.py     # 3 recommendation projects
+  time_series.py        # 3 time series projects
+  data_viz.py           # 3 visualization projects
+  deep_learning.py      # 3 deep learning projects
+  ai_agents.py          # 3 AI agent projects
 ```
 
-## 📜 Teknolojiler ve Kütüphaneler
-* **Arayüz & Dashboard:** Streamlit, Plotly Express
-* **Makine Öğrenmesi & NLP:** Scikit-Learn, Joblib, Naive Bayes
-* **Derin Öğrenme & CV:** TensorFlow, Keras, OpenCV, MediaPipe
-* **Veri Yönetimi:** Pandas, NumPy
-* **Veri Kaynağı:** Kaggle Hub API
+## Local Setup
+
+```bash
+git clone https://github.com/oktaybobus/DataScientst.git
+cd DataScientst
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Models are automatically downloaded from [Hugging Face Hub](https://huggingface.co/OKTAYBBS/DataScientst-models) on first run and cached locally.
+
+## Tech Stack
+
+- **UI:** Streamlit, Plotly Express
+- **ML:** scikit-learn, Joblib
+- **Deep Learning:** TensorFlow, Keras
+- **Computer Vision:** OpenCV, MediaPipe
+- **Data:** Pandas, NumPy, Kaggle Hub API
+- **Model Hosting:** Hugging Face Hub

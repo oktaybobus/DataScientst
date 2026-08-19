@@ -6,27 +6,27 @@ from components import show_dataset_info, show_model_metrics
 
 
 def render():
-    project = st.sidebar.selectbox("Bir Proje Seçin", [
-        "SMS Spam / Kimlik Avı Tespiti",
-        "IMDb Film Yorumları Duygu Analizi",
-        "Sahte Haber Tespiti"
+    project = st.sidebar.selectbox("Select a Project", [
+        "SMS Spam Detection",
+        "IMDb Sentiment Analysis",
+        "Fake News Detection"
     ])
 
-    # ----------------- 1. SMS SPAM / KİMLİK AVI TESPİTİ -----------------
-    if project == "SMS Spam / Kimlik Avı Tespiti":
-        st.header("📧 SMS Spam / Kimlik Avı Tespiti")
-        st.write("Gelen şüpheli mesajı kutuya yapıştırarak güvenli (Ham) mi yoksa dolandırıcılık (Spam) mı olduğunu analiz edin.")
+    # ----------------- 1. SMS SPAM DETECTION -----------------
+    if project == "SMS Spam Detection":
+        st.header("📧 SMS Spam Detection")
+        st.write("Paste a suspicious message to analyze whether it is safe (Ham) or fraudulent (Spam).")
 
         show_dataset_info("sms")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["sms"], language="python")
 
         show_model_metrics("sms")
 
-        user_text = st.text_area("Mesaj Metni (İngilizce)", "Congratulations! You've won a $1,000 Walmart Gift Card. Click here to claim now.")
+        user_text = st.text_area("Message Text (English)", "Congratulations! You've won a $1,000 Walmart Gift Card. Click here to claim now.")
 
-        if st.button("Mesajı Analiz Et"):
+        if st.button("Analyze Message"):
             try:
                 # Model ve Vektörleştiriciyi Yükle
                 model = load_model('spam_model.pkl')
@@ -37,27 +37,27 @@ def render():
                 pred = model.predict(text_vector)[0]
 
                 if pred == 1:
-                    st.error("⚠️ TESPİT: Bu mesaj büyük olasılıkla bir SPAM veya KİMLİK AVI (Phishing) girişimidir!")
+                    st.error("⚠️ DETECTED: This message is most likely SPAM or a PHISHING attempt!")
                 else:
-                    st.success("✅ TESPİT: Bu mesaj GÜVENLİ (Ham) görünüyor.")
+                    st.success("✅ DETECTED: This message appears to be SAFE (Ham).")
             except FileNotFoundError:
-                st.warning("Model dosyaları bulunamadı. Lütfen önce 'train_nlp.py' dosyasını çalıştırın.")
+                st.warning("Model files not found. Please run 'train_nlp.py' first.")
 
-    # ----------------- 2. IMDb FİLM YORUMLARI DUYGU ANALİZİ -----------------
-    elif project == "IMDb Film Yorumları Duygu Analizi":
-        st.header("🍿 IMDb Film Yorumları Duygu Analizi")
-        st.write("Bir film hakkındaki eleştiriyi yazın, yapay zeka olumlu mu yoksa olumsuz mu olduğunu söylesin.")
+    # ----------------- 2. IMDb SENTIMENT ANALYSIS -----------------
+    elif project == "IMDb Sentiment Analysis":
+        st.header("🍿 IMDb Movie Review Sentiment Analysis")
+        st.write("Write a movie review, and the AI will determine whether it is positive or negative.")
 
         show_dataset_info("imdb_sentiment")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["imdb_sentiment"], language="python")
 
         show_model_metrics("imdb_sentiment")
 
-        user_text = st.text_area("Film Eleştirisi (İngilizce)", "The movie was absolutely fantastic! The acting was superb and the plot kept me on the edge of my seat.")
+        user_text = st.text_area("Movie Review (English)", "The movie was absolutely fantastic! The acting was superb and the plot kept me on the edge of my seat.")
 
-        if st.button("Duygu Durumunu Tahmin Et"):
+        if st.button("Predict Sentiment"):
             try:
                 model = load_model('imdb_model.pkl')
                 vectorizer = load_model('imdb_vectorizer.pkl')
@@ -66,27 +66,27 @@ def render():
                 pred = model.predict(text_vector)[0]
 
                 if pred == 1:
-                    st.success("🥰 Sonuç: POZİTİF (Olumlu) bir eleştiri. İzleyiciler filmi sevmiş!")
+                    st.success("🥰 Result: POSITIVE review. The audience loved the movie!")
                 else:
-                    st.error("🤬 Sonuç: NEGATİF (Olumsuz) bir eleştiri. İzleyiciler filmden hoşlanmamış.")
+                    st.error("🤬 Result: NEGATIVE review. The audience did not enjoy the movie.")
             except FileNotFoundError:
-                st.warning("Model dosyaları bulunamadı. Lütfen önce modelleri eğitin.")
+                st.warning("Model files not found. Please train the models first.")
 
-    # ----------------- 3. SAHTE HABER TESPİTİ -----------------
-    elif project == "Sahte Haber Tespiti":
-        st.header("📰 Sahte Haber Tespiti")
-        st.write("Şüphelendiğiniz bir haber metnini veya makaleyi girerek gerçekliğini doğrulayın.")
+    # ----------------- 3. FAKE NEWS DETECTION -----------------
+    elif project == "Fake News Detection":
+        st.header("📰 Fake News Detection")
+        st.write("Enter a suspicious news article or text to verify its authenticity.")
 
         show_dataset_info("fake_news")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["fake_news"], language="python")
 
         show_model_metrics("fake_news")
 
-        user_text = st.text_area("Haber İçeriği / Metni (İngilizce)", "The government has officially announced a new law that completely bans all social media platforms starting next Monday.")
+        user_text = st.text_area("News Content / Text (English)", "The government has officially announced a new law that completely bans all social media platforms starting next Monday.")
 
-        if st.button("Haber Gerçekliğini Sorgula"):
+        if st.button("Check News Authenticity"):
             try:
                 model = load_model('news_model.pkl')
                 vectorizer = load_model('news_vectorizer.pkl')
@@ -95,8 +95,8 @@ def render():
                 pred = model.predict(text_vector)[0]
 
                 if pred == 1:
-                    st.error("🚨 DİKKAT: Bu haber büyük ihtimalle SAHTE (Uydurma/Manipülatif) bir içeriğe sahip!")
+                    st.error("🚨 WARNING: This news is most likely FAKE (fabricated/manipulative content)!")
                 else:
-                    st.success("📰 SONUÇ: Bu haber GERÇEK ve doğrulanmış kaynaklara dayanıyor gibi görünüyor.")
+                    st.success("📰 RESULT: This news appears to be REAL and based on verified sources.")
             except FileNotFoundError:
-                st.warning("Gerekli model dosyaları eksik.")
+                st.warning("Required model files are missing.")

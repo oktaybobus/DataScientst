@@ -10,29 +10,29 @@ from components import show_dataset_info, show_model_metrics
 
 
 def render():
-    project = st.sidebar.selectbox("Bir Proje Seçin", [
-        "Yapay Zeka ile Zatürre Teşhisi",
-        "Yüz İfadesinden Duygu Tanıma",
-        "Metin Üretim Robotu"
+    project = st.sidebar.selectbox("Select a Project", [
+        "Pneumonia Detection from X-Ray",
+        "Facial Emotion Recognition",
+        "Text Generation Bot"
     ])
 
-    # ----------------- 1. YAPAY ZEKA İLE ZATÜRRE TESHİSİ -----------------
-    if project == "Yapay Zeka ile Zatürre Teşhisi":
-        st.header("🩻 Göğüs Röntgeninden Zatürre (Pneumonia) Teşhisi")
-        st.write("Yüklenen Göğüs Röntgeni (X-Ray) görselini evrişimli sinir ağları (CNN) ile analiz edin.")
+    # ----------------- 1. PNEUMONIA DETECTION FROM X-RAY -----------------
+    if project == "Pneumonia Detection from X-Ray":
+        st.header("🩻 Pneumonia Detection from Chest X-Ray")
+        st.write("Analyze an uploaded chest X-ray image using convolutional neural networks (CNN).")
 
         show_dataset_info("pneumonia")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["pneumonia"], language="python")
 
         show_model_metrics("pneumonia")
 
-        uploaded_file = st.file_uploader("Göğüs Röntgeni Fotoğrafı Yükleyin", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Upload a Chest X-Ray Image", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             image = Image.open(uploaded_file)
-            st.image(image, caption="Analiz Edilen Röntgen Görseli", width=350)
+            st.image(image, caption="Analyzed X-Ray Image", width=350)
 
             try:
                 # Resmi yükleyip ön işleme yapma
@@ -44,33 +44,33 @@ def render():
                 prediction = model.predict(input_data)[0][0]
 
                 if prediction > 0.5:
-                    st.error(f"⚠️ Analiz Sonucu: ZATÜRRE (PNEUMONIA) Belirtileri Saptandı. (Olasılık: %{prediction*100:.1f})")
+                    st.error(f"⚠️ Analysis Result: PNEUMONIA indicators detected. (Probability: %{prediction*100:.1f})")
                 else:
-                    st.success(f"✅ Analiz Sonucu: TEMİZ / NORMAL Görünüyor. (Olasılık: %{(1-prediction)*100:.1f})")
+                    st.success(f"✅ Analysis Result: Appears NORMAL / CLEAR. (Probability: %{(1-prediction)*100:.1f})")
             except Exception as e:
-                st.warning("Model yükleme hatası veya simülasyon modu. Örnek sonuç gösteriliyor:")
-                res = random.choice(["Normal ✅", "Zatürre (Pneumonia) Riski ⚠️"])
-                st.info(f"Sonuç: {res}")
+                st.warning("Model loading error or simulation mode. Showing sample result:")
+                res = random.choice(["Normal ✅", "Pneumonia Risk ⚠️"])
+                st.info(f"Result: {res}")
 
-            st.caption("⚠️ **Not:** Bu bilgi eğitim amaçlıdır ve kesinlikle tıbbi tavsiye niteliği taşımamaktadır. Lütfen resmi tanı için bir hekime başvurun.")
+            st.caption("⚠️ **Note:** This is for educational purposes only and does not constitute medical advice. Please consult a physician for an official diagnosis.")
 
-    # ----------------- 2. YÜZ İFADESİNDEN DUYGU TANIMA -----------------
-    elif project == "Yüz İfadesinden Duygu Tanıma":
-        st.header("🎭 Yüz İfadesinden Duygu Durum Tanıma")
-        st.write("Yüz fotoğrafı yükleyin, yapay zeka anlık duygu durumunu (Mutlu, Üzgün, Öfkeli) analiz etsin.")
+    # ----------------- 2. FACIAL EMOTION RECOGNITION -----------------
+    elif project == "Facial Emotion Recognition":
+        st.header("🎭 Facial Emotion Recognition")
+        st.write("Upload a face photo, and the AI will analyze the current emotional state (Happy, Sad, Angry).")
 
         show_dataset_info("face_emotion")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["face_emotion"], language="python")
 
         show_model_metrics("face_emotion")
 
-        uploaded_file = st.file_uploader("Yüz Fotoğrafı Yükleyin", type=["jpg", "jpeg", "png"], key="fer_input")
+        uploaded_file = st.file_uploader("Upload a Face Photo", type=["jpg", "jpeg", "png"], key="fer_input")
 
         if uploaded_file is not None:
             image = Image.open(uploaded_file)
-            st.image(image, caption="Taranan Yüz", width=300)
+            st.image(image, caption="Scanned Face", width=300)
 
             try:
                 img = np.array(image.convert('L'))
@@ -80,28 +80,28 @@ def render():
                 model = load_keras_model('fer_model.keras')
                 preds = model.predict(input_data)[0]
 
-                emotions = ["Öfkeli 🤬", "Mutlu 🥰", "Üzgün 😢"]
+                emotions = ["Angry 🤬", "Happy 🥰", "Sad 😢"]
                 dominant_emotion = emotions[np.argmax(preds)]
-                st.success(f"Yüzdeki Baskın Duygu: **{dominant_emotion}**")
+                st.success(f"Dominant Emotion Detected: **{dominant_emotion}**")
             except:
-                st.info(f"Yüzdeki Baskın Duygu (Simülasyon): **{random.choice(['Mutlu 🥰', 'Üzgün 😢', 'Şaşırmış 😲'])}**")
+                st.info(f"Dominant Emotion (Simulation): **{random.choice(['Happy 🥰', 'Sad 😢', 'Surprised 😲'])}**")
 
-    # ----------------- 3. METİN ÜRETİM ROBOTU -----------------
-    elif project == "Metin Üretim Robotu":
-        st.header("✍️ Karakter/Kelime Tabanlı Metin Üretim Robotu")
-        st.write("Bir başlangıç kelimesi girin, yapay sinir ağının öğrendiği dilde cümlenin devamını robot üretsin.")
+    # ----------------- 3. TEXT GENERATION BOT -----------------
+    elif project == "Text Generation Bot":
+        st.header("✍️ Character/Word-Based Text Generation Bot")
+        st.write("Enter a seed word, and the neural network will generate a continuation in the language it learned.")
 
         show_dataset_info("text_gen")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["text_gen"], language="python")
 
         show_model_metrics("text_gen")
 
-        start_word = st.selectbox("Başlangıç Kelimesini Seçin", ["to", "be", "or", "not", "the", "mind", "fortune"])
-        length = st.slider("Üretilecek Kelime Sayısı", 5, 20, 10)
+        start_word = st.selectbox("Select a Seed Word", ["to", "be", "or", "not", "the", "mind", "fortune"])
+        length = st.slider("Number of Words to Generate", 5, 20, 10)
 
-        if st.button("Yapay Zeka Metni Üretsin"):
+        if st.button("Generate Text with AI"):
             try:
                 markov_chain = load_model('text_robot_model.pkl')
 
@@ -116,7 +116,7 @@ def render():
                     else:
                         break
 
-                st.subheader("🤖 Robotun Ürettiği Metin:")
+                st.subheader("🤖 Text Generated by the Bot:")
                 st.write(f" *\"{' '.join(generated_text)}...\"*")
             except FileNotFoundError:
-                st.warning("Metin robotu veri dosyası eksik.")
+                st.warning("Text bot data file is missing.")

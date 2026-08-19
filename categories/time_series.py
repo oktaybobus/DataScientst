@@ -8,27 +8,27 @@ from components import show_dataset_info, show_model_metrics
 
 
 def render():
-    project = st.sidebar.selectbox("Bir Proje Seçin", [
-        "Hisse Senedi Fiyat Tahmini",
-        "Hava Durumu / Sıcaklık Tahmini",
-        "Mağaza Satış Tahmini"
+    project = st.sidebar.selectbox("Select a Project", [
+        "Stock Price Prediction",
+        "Weather / Temperature Prediction",
+        "Store Sales Prediction"
     ])
 
-    # ----------------- 1. HİSSE SENEDİ FİYAT TAHMİNİ -----------------
-    if project == "Hisse Senedi Fiyat Tahmini":
-        st.header("📈 Hisse Senedi Fiyat Tahmini (Apple - AAPL)")
-        st.write("Apple hissesinin geçmiş verilerine dayanarak önümüzdeki 7 günün fiyat trendini simüle edin.")
+    # ----------------- 1. STOCK PRICE PREDICTION -----------------
+    if project == "Stock Price Prediction":
+        st.header("📈 Stock Price Prediction (Apple - AAPL)")
+        st.write("Simulate the next 7 days of price trends based on Apple stock historical data.")
 
         show_dataset_info("stock")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["stock"], language="python")
 
         show_model_metrics("stock")
 
-        days_to_predict = st.slider("Tahmini Gün Sayısı", 1, 14, 7)
+        days_to_predict = st.slider("Number of Days to Predict", 1, 14, 7)
 
-        if st.button("Gelecek Trendi Tahmin Et"):
+        if st.button("Predict Future Trend"):
             try:
                 model = load_model('stock_model.pkl')
                 recent_data = load_model('stock_recent.pkl')  # Son 30 gunun kapanis fiyatlari
@@ -43,32 +43,32 @@ def render():
                     current_input = pred
 
                 # Grafik için veri birleştirme
-                history_df = pd.DataFrame({'Fiyat ($)': recent_data, 'Tür': 'Geçmiş Değerler'})
-                future_df = pd.DataFrame({'Fiyat ($)': predictions, 'Tür': 'Gelecek Tahminleri'})
+                history_df = pd.DataFrame({'Price ($)': recent_data, 'Type': 'Historical'})
+                future_df = pd.DataFrame({'Price ($)': predictions, 'Type': 'Forecast'})
                 total_df = pd.concat([history_df, future_df]).reset_index(drop=True)
 
                 # Grafik Çizimi
-                st.write("📊 **Son 30 Gün ve Gelecek Tahmin Grafiği**")
-                st.line_chart(total_df['Fiyat ($)'])
-                st.success(f"🚀 {days_to_predict} gün sonraki tahmini kapanış fiyatı: **${predictions[-1]:.2f}**")
+                st.write("📊 **Last 30 Days and Forecast Chart**")
+                st.line_chart(total_df['Price ($)'])
+                st.success(f"🚀 Predicted closing price in {days_to_predict} days: **${predictions[-1]:.2f}**")
             except FileNotFoundError:
-                st.warning("Model dosyaları eksik. Lütfen önce 'train_timeseries.py' dosyasını çalıştırın.")
+                st.warning("Model files are missing. Please run 'train_timeseries.py' first.")
 
-    # ----------------- 2. HAVA DURUMU / SICAKLIK TAHMİNİ -----------------
-    elif project == "Hava Durumu / Sıcaklık Tahmini":
-        st.header("🌦️ Hava Durumu / Ortalama Sıcaklık Tahmini")
-        st.write("Geçmiş iklim verilerinden yola çıkarak önümüzdeki günlerin sıcaklık değişimini öngörün.")
+    # ----------------- 2. WEATHER / TEMPERATURE PREDICTION -----------------
+    elif project == "Weather / Temperature Prediction":
+        st.header("🌦️ Weather / Average Temperature Prediction")
+        st.write("Forecast upcoming temperature changes based on historical climate data.")
 
         show_dataset_info("weather")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["weather"], language="python")
 
         show_model_metrics("weather")
 
-        days_to_predict = st.slider("Tahmin Edilecek Gün Sayısı", 1, 10, 5, key="weather_days")
+        days_to_predict = st.slider("Number of Days to Predict", 1, 10, 5, key="weather_days")
 
-        if st.button("Sıcaklık Trendini Hesapla"):
+        if st.button("Calculate Temperature Trend"):
             try:
                 model = load_model('weather_model.pkl')
                 recent_data = load_model('weather_recent.pkl')
@@ -80,30 +80,30 @@ def render():
                     predictions.append(pred)
                     current_input = pred
 
-                history_df = pd.DataFrame({'Sıcaklık (°C)': recent_data})
-                future_df = pd.DataFrame({'Sıcaklık (°C)': predictions})
+                history_df = pd.DataFrame({'Temperature (°C)': recent_data})
+                future_df = pd.DataFrame({'Temperature (°C)': predictions})
                 total_df = pd.concat([history_df, future_df]).reset_index(drop=True)
 
-                st.line_chart(total_df['Sıcaklık (°C)'])
-                st.info(f"🌡️ {days_to_predict} gün sonra tahmini ortalama sıcaklık: **{predictions[-1]:.1f}°C**")
+                st.line_chart(total_df['Temperature (°C)'])
+                st.info(f"🌡️ Predicted average temperature in {days_to_predict} days: **{predictions[-1]:.1f}°C**")
             except FileNotFoundError:
-                st.warning("Hava durumu model dosyaları eksik.")
+                st.warning("Weather model files are missing.")
 
-    # ----------------- 3. MAĞAZA SATIŞ TAHMİNİ -----------------
-    elif project == "Mağaza Satış Tahmini":
-        st.header("🛒 Mağaza Satış Tahmini (Walmart Analitiği)")
-        st.write("Haftalık ciro verilerini analiz ederek önümüzdeki haftaların ciro talebini tahmin edin.")
+    # ----------------- 3. STORE SALES PREDICTION -----------------
+    elif project == "Store Sales Prediction":
+        st.header("🛒 Store Sales Prediction (Walmart Analytics)")
+        st.write("Analyze weekly revenue data to forecast upcoming weeks' sales demand.")
 
         show_dataset_info("walmart")
 
-        with st.expander("🧪 Model Nasıl Eğitildi? (Eğitim Kodunu Gör)"):
+        with st.expander("🧪 How Was the Model Trained? (View Training Code)"):
             st.code(TRAIN_CODE["walmart"], language="python")
 
         show_model_metrics("walmart")
 
-        weeks_to_predict = st.slider("Tahmin Edilecek Hafta Sayısı", 1, 4, 2)
+        weeks_to_predict = st.slider("Number of Weeks to Predict", 1, 4, 2)
 
-        if st.button("Haftalık Ciroyu Tahmin Et"):
+        if st.button("Predict Weekly Revenue"):
             try:
                 model = load_model('walmart_model.pkl')
                 recent_data = load_model('walmart_recent.pkl')
@@ -115,11 +115,11 @@ def render():
                     predictions.append(pred)
                     current_input = pred
 
-                history_df = pd.DataFrame({'Haftalık Satış ($)': recent_data})
-                future_df = pd.DataFrame({'Haftalık Satış ($)': predictions})
+                history_df = pd.DataFrame({'Weekly Sales ($)': recent_data})
+                future_df = pd.DataFrame({'Weekly Sales ($)': predictions})
                 total_df = pd.concat([history_df, future_df]).reset_index(drop=True)
 
-                st.line_chart(total_df['Haftalık Satış ($)'])
-                st.success(f"💳 {weeks_to_predict} hafta sonra beklenen tahmini mağaza cirosu: **${predictions[-1]:,.2f}**")
+                st.line_chart(total_df['Weekly Sales ($)'])
+                st.success(f"💳 Predicted store revenue in {weeks_to_predict} weeks: **${predictions[-1]:,.2f}**")
             except FileNotFoundError:
-                st.warning("Walmart model dosyaları bulunamadı.")
+                st.warning("Walmart model files not found.")

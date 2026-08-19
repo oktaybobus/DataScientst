@@ -16,40 +16,39 @@ from categories import data_viz
 from categories import deep_learning
 from categories import ai_agents
 
-st.set_page_config(page_title="Makine Öğrenmesi Portfolyosu", layout="wide")
+st.set_page_config(page_title="Machine Learning Portfolio", layout="wide")
 st.title("Specialize in Data Science")
 
-# Sol Menü Güncellemesi (Tüm 10 Kategori Tamamlandı!)
-main_category = st.sidebar.selectbox("Uygulama Kategorisi Seçin", [
-    "Regresyon (Regression)",
-    "Sınıflandırma (Classification)",
-    "Kümeleme (Clustering)",
-    "Bilgisayarlı Görü (Computer Vision)",
-    "Doğal Dil İşleme (NLP)",
-    "Öneri Sistemleri (Recommendation)",
-    "Zaman Serileri (Time Series)",
-    "Veri Görselleştirme (Data Viz)",
-    "Derin Öğrenme (Deep Learning)",
-    "Yapay Zeka Ajanları (AI Agents)"
+main_category = st.sidebar.selectbox("Select Category", [
+    "Regression",
+    "Classification",
+    "Clustering",
+    "Computer Vision",
+    "Natural Language Processing (NLP)",
+    "Recommendation Systems",
+    "Time Series",
+    "Data Visualization",
+    "Deep Learning",
+    "AI Agents"
 ])
 
-if main_category == "Regresyon (Regression)":
+if main_category == "Regression":
     regression.render()
-elif main_category == "Sınıflandırma (Classification)":
+elif main_category == "Classification":
     classification.render()
-elif main_category == "Kümeleme (Clustering)":
+elif main_category == "Clustering":
     clustering.render()
-elif main_category == "Bilgisayarlı Görü (Computer Vision)":
+elif main_category == "Computer Vision":
     computer_vision.render()
-elif main_category == "Doğal Dil İşleme (NLP)":
+elif main_category == "Natural Language Processing (NLP)":
     nlp.render()
-elif main_category == "Öneri Sistemleri (Recommendation)":
+elif main_category == "Recommendation Systems":
     recommendation.render()
-elif main_category == "Zaman Serileri (Time Series)":
+elif main_category == "Time Series":
     time_series.render()
-elif main_category == "Veri Görselleştirme (Data Viz)":
+elif main_category == "Data Visualization":
     data_viz.render()
-elif main_category == "Derin Öğrenme (Deep Learning)":
+elif main_category == "Deep Learning":
     deep_learning.render()
-elif main_category == "Yapay Zeka Ajanları (AI Agents)":
+elif main_category == "AI Agents":
     ai_agents.render()
