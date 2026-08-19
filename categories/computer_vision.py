@@ -1,8 +1,13 @@
 import streamlit as st
 import numpy as np
 import cv2
-import mediapipe as mp
 from PIL import Image
+
+try:
+    import mediapipe as mp
+    HAS_MEDIAPIPE = True
+except ImportError:
+    HAS_MEDIAPIPE = False
 
 from model_loader import load_model
 from train_codes import TRAIN_CODE
@@ -105,6 +110,11 @@ def render():
 
         if uploaded_file is not None:
             image = np.array(Image.open(uploaded_file))
+
+            if not HAS_MEDIAPIPE:
+                st.warning("MediaPipe kutuphanesi bu ortamda mevcut degil. El tespiti devre disi.")
+                st.image(image, width=400)
+                return
 
             # MediaPipe Hands Başlatma
             mp_hands = mp.solutions.hands
