@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+models_bundle/
+models_bundle.zip
+models
+.DS_Store
+.ipynb_checkpoints/

@@ -1,0 +1,680 @@
+<title>DataScientst Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #F7F6F3;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAF8;
+  --text: #1A1A1A;
+  --text-secondary: #5A5A52;
+  --text-muted: #8E8E82;
+  --accent: #2D5F2D;
+  --accent-light: #E8F0E8;
+  --border: #E2E0DA;
+  --metric-bg: #F0EDE8;
+  --tag-bg: #EDEBE6;
+  --tag-text: #4A4A42;
+  --divider: #D8D5CE;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --cat-reg: #2D5F2D;
+  --cat-clf: #4A3B8F;
+  --cat-clu: #8F5A3B;
+  --cat-cv: #2D4F6F;
+  --cat-nlp: #6F2D4F;
+  --cat-rec: #3B6F8F;
+  --cat-ts: #5F5F2D;
+  --cat-viz: #8F3B5A;
+  --cat-dl: #3B3B8F;
+  --cat-ai: #2D6F5F;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413;
+    --bg-card: #1E1E1C;
+    --bg-card-hover: #262624;
+    --text: #E8E6E0;
+    --text-secondary: #A8A69E;
+    --text-muted: #6E6E66;
+    --accent: #5CB85C;
+    --accent-light: #1E2E1E;
+    --border: #2E2E2A;
+    --metric-bg: #242420;
+    --tag-bg: #2A2A26;
+    --tag-text: #B8B6AE;
+    --divider: #333330;
+    --shadow: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.3);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413;
+  --bg-card: #1E1E1C;
+  --bg-card-hover: #262624;
+  --text: #E8E6E0;
+  --text-secondary: #A8A69E;
+  --text-muted: #6E6E66;
+  --accent: #5CB85C;
+  --accent-light: #1E2E1E;
+  --border: #2E2E2A;
+  --metric-bg: #242420;
+  --tag-bg: #2A2A26;
+  --tag-text: #B8B6AE;
+  --divider: #333330;
+  --shadow: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+
+/* HEADER */
+.header { margin-bottom: 3rem; }
+.header-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+.header-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.65;
+}
+
+/* STATS ROW */
+.stats-row {
+  display: flex;
+  gap: 1px;
+  background: var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+.stat-cell {
+  flex: 1;
+  background: var(--bg-card);
+  padding: 1.25rem 1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.4rem;
+}
+
+/* CATEGORY SECTION */
+.category-section { margin-bottom: 2.5rem; }
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--divider);
+}
+.category-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.category-name {
+  font-size: 0.8rem;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+.category-count {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+}
+
+/* PROJECT CARDS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 768px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .stats-row { flex-direction: column; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.15rem;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow);
+}
+.project-card:hover {
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-hover);
+}
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.card-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: 0.65rem;
+  font-family: 'Space Mono', monospace;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  letter-spacing: 0.03em;
+}
+.metric-pill {
+  font-size: 0.65rem;
+  font-family: 'Space Mono', monospace;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+/* TECH STACK */
+.tech-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--divider);
+}
+.tech-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tech-tag {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--divider);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 768px) { .footer { flex-direction: column; gap: 0.5rem; } }
+</style>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-eyebrow">Machine Learning Portfolio</div>
+    <h1>30 Proje ile Veri Bilimi<br>Uzmanligi</h1>
+    <p class="header-desc">Regresyondan derin ogrenmee, NLP'den bilgisayarli goruye -- 10 farkli kategoride egitilmis modeller, gercek veri setleri ve canli Streamlit arayuzu.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-cell"><div class="stat-num">30</div><div class="stat-label">Proje</div></div>
+    <div class="stat-cell"><div class="stat-num">10</div><div class="stat-label">Kategori</div></div>
+    <div class="stat-cell"><div class="stat-num">34</div><div class="stat-label">Egitilmis Model</div></div>
+    <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-label">Kaggle Dataset</div></div>
+    <div class="stat-cell"><div class="stat-num">1</div><div class="stat-label">Streamlit App</div></div>
+  </div>
+
+  <!-- REGRESSION -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-reg)"></div>
+      <span class="category-name">Regresyon</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Altin Fiyati Tahmini</div>
+        <div class="card-desc">S&P 500, petrol, gumus ve EUR/USD endekslerinden altin ons fiyatini tahmin eder.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">Kaggle</span>
+          <span class="metric-pill">R² 0.990</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Ogrenci Sinav Puani Tahmini</div>
+        <div class="card-desc">Demografik ve egitsel faktorlerden matematik puanini ongorur.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">OneHot</span>
+          <span class="metric-pill">R² 0.849</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Uber/Taksi Ucret Tahmini</div>
+        <div class="card-desc">Kalkis-varis koordinatlari ve yolcu sayisindan yolculuk maliyetini hesaplar.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">50K satir</span>
+          <span class="metric-pill">R² 0.778</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSIFICATION -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-clf)"></div>
+      <span class="category-name">Siniflandirma</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Mobil Cihaz Fiyat Segmenti</div>
+        <div class="card-desc">Donanim ozelliklerine gore telefonun fiyat sinifini (0-3) belirler.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="metric-pill">Acc 81.2%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Sarap Kalitesi Siniflandirmasi</div>
+        <div class="card-desc">Kimyasal olcumlerden kirmizi sarap kalite puanini tahmin eder.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">Balanced</span>
+          <span class="metric-pill">Acc 67.5%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Musteri Terki (Churn) Tahmini</div>
+        <div class="card-desc">Telekom musterilerinin ayrilma riskini kullanim aliskanliklarindan hesaplar.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">OneHot</span>
+          <span class="metric-pill">Acc 78.9%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLUSTERING -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-clu)"></div>
+      <span class="category-name">Kumeleme</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">NBA Oyuncu Performans Gruplama</div>
+        <div class="card-desc">Istatistiklere gore oyunculari otonom oyun stillerine ayirir, 3D gorsellestirmeli.</div>
+        <div class="card-footer">
+          <span class="tag">KMeans</span>
+          <span class="tag">3D Viz</span>
+          <span class="metric-pill">Sil 0.452</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Kredi Karti Musteri Segmentasyonu</div>
+        <div class="card-desc">Harcama limitleri ve bakiyelerine gore finansal profiller olusturur.</div>
+        <div class="card-footer">
+          <span class="tag">KMeans</span>
+          <span class="tag">Scaler</span>
+          <span class="metric-pill">Sil 0.531</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Spotify Sarki Tarzi Kumeleme</div>
+        <div class="card-desc">Sarkilari dans edilebilirlik ve enerji gibi ozelliklere gore gruplar.</div>
+        <div class="card-footer">
+          <span class="tag">KMeans</span>
+          <span class="tag">Spotify</span>
+          <span class="metric-pill">Sil 0.327</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPUTER VISION -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-cv)"></div>
+      <span class="category-name">Bilgisayarli Goru</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Surucu Uyuklama Tespiti</div>
+        <div class="card-desc">Goz aciklik oranini (EAR) analiz ederek surucu yorgunlugunu tespit eder.</div>
+        <div class="card-footer">
+          <span class="tag">MediaPipe</span>
+          <span class="tag">EAR</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Maske Kullanimi Tespiti</div>
+        <div class="card-desc">Yukledigi fotograflardaki yuzleri tarayarak maskeli/maskesiz ayrimini yapar.</div>
+        <div class="card-footer">
+          <span class="tag">RandomForest</span>
+          <span class="tag">64x64px</span>
+          <span class="metric-pill">Acc 82.5%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">El Isaretleri ve Parmak Sayma</div>
+        <div class="card-desc">MediaPipe ile el eklem noktalarini cikararak acik parmak sayisini hesaplar.</div>
+        <div class="card-footer">
+          <span class="tag">MediaPipe</span>
+          <span class="tag">Realtime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NLP -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-nlp)"></div>
+      <span class="category-name">Dogal Dil Isleme</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">SMS Spam / Kimlik Avi Tespiti</div>
+        <div class="card-desc">Gelen metinleri TF-IDF ile analiz ederek dolandiricilik girisimlerini saptar.</div>
+        <div class="card-footer">
+          <span class="tag">NaiveBayes</span>
+          <span class="tag">TF-IDF</span>
+          <span class="metric-pill">Acc 98.0%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">IMDb Duygu Analizi</div>
+        <div class="card-desc">Film eleshtirilerinin arkasindaki duygu durumunu siniflandirir.</div>
+        <div class="card-footer">
+          <span class="tag">LogReg</span>
+          <span class="tag">TF-IDF</span>
+          <span class="metric-pill">Acc 87.3%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Sahte Haber Tespiti</div>
+        <div class="card-desc">Haber metinlerinin dogrulugunu ve manipulasyon riskini analiz eder.</div>
+        <div class="card-footer">
+          <span class="tag">LogReg</span>
+          <span class="tag">TF-IDF</span>
+          <span class="metric-pill">Acc 97.6%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-rec)"></div>
+      <span class="category-name">Oneri Sistemleri</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">IMDb Film Oneri Sistemi</div>
+        <div class="card-desc">Tur ve ozet benzerliklerine (Cosine Similarity) gore film tavsiye eder.</div>
+        <div class="card-footer">
+          <span class="tag">TF-IDF</span>
+          <span class="tag">Cosine Sim</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Kitap Tavsiye Motoru</div>
+        <div class="card-desc">Yazar ve icerik ortakliklarina gore okuma listesi onerileri sunar.</div>
+        <div class="card-footer">
+          <span class="tag">TF-IDF</span>
+          <span class="tag">Goodreads</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Sarki / Muzik Oneri Sistemi</div>
+        <div class="card-desc">Spotify ritim ve tarz benzerliklerine gore sarki kuyrugu olusturur.</div>
+        <div class="card-footer">
+          <span class="tag">TF-IDF</span>
+          <span class="tag">Spotify</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIME SERIES -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-ts)"></div>
+      <span class="category-name">Zaman Serileri</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Hisse Senedi Fiyat Tahmini</div>
+        <div class="card-desc">AAPL hissesinin gecmis verilerinden gelecek gunlerin trendini cizer.</div>
+        <div class="card-footer">
+          <span class="tag">LinearReg</span>
+          <span class="tag">yfinance</span>
+          <span class="metric-pill">R² 0.975</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Hava Durumu / Sicaklik Tahmini</div>
+        <div class="card-desc">Tarihsel iklim verileriyle onumuzdeki gunlerin sicaklik grafiğini ongorur.</div>
+        <div class="card-footer">
+          <span class="tag">LinearReg</span>
+          <span class="tag">Lag-1</span>
+          <span class="metric-pill">R² 0.912</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Magaza Satis Tahmini</div>
+        <div class="card-desc">Walmart haftalik satis verilerini analiz ederek gelecek ciroyu tahmin eder.</div>
+        <div class="card-footer">
+          <span class="tag">LinearReg</span>
+          <span class="tag">Sentetik</span>
+          <span class="metric-pill">R² 0.767</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA VIZ -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-viz)"></div>
+      <span class="category-name">Veri Gorsellestirme</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Kuresel Sosyal Medya Istatistikleri</div>
+        <div class="card-desc">Platform bazli gunluk kullanim sureleri ve yas gruplari duygu dagilimlarini gosterir.</div>
+        <div class="card-footer">
+          <span class="tag">Plotly</span>
+          <span class="tag">Dashboard</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Iklim Degisikligi & CO2 Salinimi</div>
+        <div class="card-desc">Ulkelerin fosil yakit kaynakli CO2 emisyon trendlerini interaktif karsilastirir.</div>
+        <div class="card-footer">
+          <span class="tag">Plotly</span>
+          <span class="tag">Interaktif</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">E-Ticaret Satis Dashboard</div>
+        <div class="card-desc">Online magazanin toplam cirosunu, ulke dagilimlarini ve en cok satanlari grafiklestirir.</div>
+        <div class="card-footer">
+          <span class="tag">Plotly</span>
+          <span class="tag">Dashboard</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEEP LEARNING -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-dl)"></div>
+      <span class="category-name">Derin Ogrenme</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Gogus Rontgeninden Zaturre Teshisi</div>
+        <div class="card-desc">X-Ray gorsellerini CNN ile tarayarak zaturre (Pneumonia) teshisi koyar.</div>
+        <div class="card-footer">
+          <span class="tag">CNN</span>
+          <span class="tag">Keras</span>
+          <span class="metric-pill">Val 92.5%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Yuz Ifadesinden Duygu Tanima</div>
+        <div class="card-desc">Insan yuzundeki mimiklerden baskin duygu durumunu tahmin eden CNN modeli.</div>
+        <div class="card-footer">
+          <span class="tag">CNN</span>
+          <span class="tag">FER2013</span>
+          <span class="metric-pill">Val 65.4%</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Metin Uretim Robotu</div>
+        <div class="card-desc">Markov zinciri ile kelime bazli olasilik zincirleri uzerinden metin olusturur.</div>
+        <div class="card-footer">
+          <span class="tag">Markov</span>
+          <span class="tag">Shakespeare</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI AGENTS -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-dot" style="background:var(--cat-ai)"></div>
+      <span class="category-name">Yapay Zeka Ajanlari</span>
+      <span class="category-count">3 proje</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-title">Akilli Tarim ve Sulama Ajani</div>
+        <div class="card-desc">Toprak nemi ve buhaslasma riskine gore sulama kararlarini otonom alan ajan.</div>
+        <div class="card-footer">
+          <span class="tag">Rule-based</span>
+          <span class="tag">Decision Tree</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">SSS Destek ve Niyet Analizi Ajani</div>
+        <div class="card-desc">Musteri mesajlarinin niyetini cozerek otonom departman yonlendirmesi yapar.</div>
+        <div class="card-footer">
+          <span class="tag">Intent Clf</span>
+          <span class="tag">NLP</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-title">Otonom Arac Simulasyon Ajani</div>
+        <div class="card-desc">Sensor verilerine gore serit takip, acil fren ve otonom park kararlarini simule eder.</div>
+        <div class="card-footer">
+          <span class="tag">Simulation</span>
+          <span class="tag">Sensor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="tech-section">
+    <div class="tech-title">Teknoloji Yigini</div>
+    <div class="tech-grid">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Streamlit</span>
+      <span class="tech-tag">scikit-learn</span>
+      <span class="tech-tag">TensorFlow / Keras</span>
+      <span class="tech-tag">OpenCV</span>
+      <span class="tech-tag">MediaPipe</span>
+      <span class="tech-tag">Pandas</span>
+      <span class="tech-tag">NumPy</span>
+      <span class="tech-tag">Plotly</span>
+      <span class="tech-tag">Joblib</span>
+      <span class="tech-tag">Kaggle API</span>
+      <span class="tech-tag">TF-IDF</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Ali Oktay Bobus -- Data Science Portfolio</span>
+    <span>30 proje &middot; 34 model &middot; 10 kategori</span>
+  </div>
+
+</div>
