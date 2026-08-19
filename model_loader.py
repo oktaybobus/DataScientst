@@ -74,5 +74,11 @@ def load_model(filename):
 
 def load_keras_model(filename):
     """TensorFlow/Keras model yukler (yerel veya HF)."""
-    import tensorflow as tf
+    try:
+        import tensorflow as tf
+    except ImportError:
+        raise ImportError(
+            "TensorFlow bu ortamda yuklu degil. "
+            "Derin ogrenme modelleri icin: pip install tensorflow"
+        )
     return tf.keras.models.load_model(get_model_path(filename))
